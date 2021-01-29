@@ -22,6 +22,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this,
             this.targetSprite,
             (playerTargetCollidier) => {
+                this.isWalking = false;
                 playerTargetCollidier.body.stop();
             },
             undefined,
