@@ -43,7 +43,7 @@ export default class MiniGameBase extends Phaser.Scene {
         this._shaderManager = this.registry.get('shaderManager');
     }
 
-    update() {
+    update(timestamp: number, dt: number) {
         this.shaderManager.update(this.cameras.main);
     }
 

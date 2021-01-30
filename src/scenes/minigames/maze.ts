@@ -15,7 +15,7 @@ export default class Maze extends MiniGameBase {
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
     }
 
-    update() {
-        super.update();
+    update(timestamp: number, dt: number) {
+        super.update(timestamp, dt);
     }
 }
