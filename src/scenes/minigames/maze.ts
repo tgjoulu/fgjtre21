@@ -29,7 +29,7 @@ export default class Maze extends MiniGameBase {
         this.input.setDraggable(hand);
     }
 
-    update() {
-        super.update();
+    update(timestamp: number, dt: number) {
+        super.update(timestamp, dt);
     }
 }

@@ -3,26 +3,23 @@ import FpsText from '../objects/fpsText';
 import PointerPosText from '../objects/pointerPosText';
 import Thing from '../objects/thing';
 import { ShaderManager, ShaderType } from '../shaders/shader_manager';
+import HeartBeat from '../objects/heartbeat';
 
 export default class MainScene extends Phaser.Scene {
     fpsText: Phaser.GameObjects.Text;
     pointerText: Phaser.GameObjects.Text;
     player: Player;
     shaderManager: ShaderManager;
+    heartbeatSounds: HeartBeat;
 
     constructor() {
         super({ key: 'MainScene' });
     }
 
-    preload() {
-        // Move these to preload scene when time
-        this.load.image('playerSprite', '../assets/player_static.png');
-        this.load.image('targetSprite', '../assets/target.png');
-        this.load.image('bg_layer', '../assets/bg_layer.png');
-    }
-
     create() {
         this.add.image(512, 288, 'bg_layer').setScale(4);
+
+        this.heartbeatSounds = this.registry.get('heartbeatSounds');
 
         this.player = new Player(this, 90, 250);
 
@@ -35,7 +32,12 @@ export default class MainScene extends Phaser.Scene {
 
         // save interactive points to a list and loop them here
         const fridge = new Thing(this, 610, 220, this.player, 'maze');
+        fridge.on('pointerup', () => {
+            this.heartbeatSounds.increase();
+        });
         const bed = new Thing(this, 77, 331, this.player, 'maze');
+
+        const microwave = new Thing(this, 860, 235, this.player, 'pizza');
     }
 
     update() {
