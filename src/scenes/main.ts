@@ -2,7 +2,7 @@ import Player from '../objects/player';
 import FpsText from '../objects/fpsText';
 import PointerPosText from '../objects/pointerPosText';
 import Thing from '../objects/thing';
-import ShaderManager from '../shaders/shader_manager';
+import { ShaderManager, ShaderType } from '../shaders/shader_manager';
 
 import playerSpriteImage from '../assets/player_static.png';
 import targetSpriteImage from '../assets/target.png';
@@ -32,7 +32,8 @@ export default class MainScene extends Phaser.Scene {
         this.fpsText = new FpsText(this);
         this.player.setCollideWorldBounds(true);
         this.shaderManager = this.registry.get('shaderManager');
-        this.shaderManager.setGrayscale(this.cameras.main);
+        this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
+        this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
         this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
@@ -43,5 +44,6 @@ export default class MainScene extends Phaser.Scene {
         this.fpsText.update();
         this.pointerText.update();
         this.player.update();
+        this.shaderManager.update(this.cameras.main);
     }
 }

@@ -9,7 +9,6 @@ export default class GrayscalePipeline extends Phaser.Renderer.WebGL.Pipelines.P
             renderTarget: true,
             fragShader: `
         precision mediump float;
-        precision mediump float;
         uniform sampler2D uMainSampler;
         varying vec2 outTexCoord;
         void main(void) {
