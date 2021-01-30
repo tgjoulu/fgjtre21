@@ -3,8 +3,8 @@ import 'phaser';
 import MainScene from './scenes/main';
 import MainMenuScene from './scenes/main_menu';
 
-const DEFAULT_WIDTH = 1280;
-const DEFAULT_HEIGHT = 720;
+const DEFAULT_WIDTH = 1024;
+const DEFAULT_HEIGHT = 576;
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
