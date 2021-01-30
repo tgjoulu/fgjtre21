@@ -1,8 +1,6 @@
 import 'phaser';
 import { ShaderManager, ShaderType } from '../../shaders/shader_manager';
 
-import minigameBg from '../../assets/minigame_bg.png';
-
 export default class MiniGameBase extends Phaser.Scene {
     onDestroy: Function;
     shaderManager: ShaderManager;
@@ -16,7 +14,7 @@ export default class MiniGameBase extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('minigameBackground', minigameBg);
+        this.load.image('minigameBackground', '../../assets/minigame_bg.png');
     }
 
     create() {

@@ -3,6 +3,7 @@ import MainScene from './scenes/main';
 
 export default class MainScene extends Phaser.Scene {
     startText: Phaser.GameObjects.Text;
+    hbSounds: Phaser.Scene;
 
     constructor() {
         super({ key: 'MainMenuScene' });
@@ -21,6 +22,8 @@ export default class MainScene extends Phaser.Scene {
             this.setGlobals();
             this.scene.start('MainScene');
         });
+
+        this.scene.launch('heartbeatSounds');
     }
 
     update() {}
