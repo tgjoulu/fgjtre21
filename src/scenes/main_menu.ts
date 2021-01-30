@@ -30,6 +30,31 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('hand', '../assets/hand.png');
         this.load.image('minigameBackground', '../../assets/minigame_bg.png');
         this.load.image('pizzaGameBackground', '../../assets/miniigame_mircro_bg.png');
+        this.load.image('minigame_1_bg', '../assets/minigame_1_bg.png');
+        this.load.image('miniigame_mircro_bg', '../assets/miniigame_mircro_bg.png');
+
+        this.load.image('bag_of_chips', '../assets/bag_of_chips.png');
+        this.load.image('bag', '../assets/bag.png');
+        this.load.image('banana', '../assets/banana.png');
+        this.load.image('can', '../assets/can.png');
+        this.load.image('chips', '../assets/chips.png');
+        this.load.image('egg', '../assets/egg.png');
+        this.load.image('empty_bag_of_chips', '../assets/empty_bag_of_chips.png');
+        this.load.image('glove', '../assets/glove.png');
+        this.load.image('kebab', '../assets/kebab.png');
+        this.load.image('key', '../assets/key.png');
+        this.load.image('mask', '../assets/mask.png');
+        this.load.image('nobel', '../assets/nobel.png');
+        this.load.image('panties', '../assets/panties.png');
+        this.load.image('phone', '../assets/phone.png');
+        this.load.image('pika', '../assets/pika.png');
+        this.load.image('pizza', '../assets/pizza.png');
+        this.load.image('rum', '../assets/rum.png');
+        this.load.image('shirt', '../assets/shirt.png');
+        this.load.image('sock', '../assets/sock.png');
+        this.load.image('wallet', '../assets/wallet.png');
+
+        this.load.image('thought_bubble', '../assets/thought_bubble.png');
 
         this.load.audio('heartbeat_slow', '../assets/sound/HB-100bpm.wav');
 
