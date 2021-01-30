@@ -1,7 +1,8 @@
 import GrayscalePipeline from './grayscale_pipeline';
 
-export class ShaderManager {
+export default class ShaderManager {
     pipelineManager: Phaser.Renderer.WebGL.PipelineManager;
+
     constructor(game: Phaser.Game) {
         if (game.renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer) {
             this.pipelineManager = game.renderer.pipelines;

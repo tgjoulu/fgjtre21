@@ -1,4 +1,4 @@
-import { ShaderManager } from '../shaders/shader_manager';
+import ShaderManager from '../shaders/shader_manager';
 import MainScene from './scenes/main';
 
 export default class MainScene extends Phaser.Scene {
