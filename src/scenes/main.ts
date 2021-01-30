@@ -21,7 +21,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(440, 250, 'bg_layer').setScale(4);
+        this.add.image(512, 288, 'bg_layer').setScale(4);
 
         this.player = new Player(this, this.cameras.main.width / 2, 0);
         this.fpsText = new FpsText(this);
