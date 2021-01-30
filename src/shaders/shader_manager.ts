@@ -56,7 +56,7 @@ export class ShaderManager {
     private getShader(
         camera: Phaser.Cameras.Scene2D.Camera,
         type: ShaderType
-    ): Phaser.Renderer.WebGL.Pipelines.PostFXPipeline {
+    ): Phaser.Renderer.WebGL.Pipelines.PostFXPipeline | null {
         let shader = camera.getPostPipeline(shaderTypeToClass(type));
         if (shader instanceof Phaser.Renderer.WebGL.Pipelines.PostFXPipeline) {
             return shader;

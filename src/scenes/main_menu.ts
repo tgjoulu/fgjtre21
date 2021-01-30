@@ -1,7 +1,6 @@
 import { ShaderManager } from '../shaders/shader_manager';
-import MainScene from './scenes/main';
 
-export default class MainScene extends Phaser.Scene {
+export default class MainMenuScene extends Phaser.Scene {
     startText: Phaser.GameObjects.Text;
     hbSounds: Phaser.Scene;
 
