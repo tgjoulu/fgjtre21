@@ -15,6 +15,15 @@ function shaderTypeToKey(type: ShaderType): string {
     }
 }
 
+function shaderTypeToClass(type: ShaderType) {
+    switch (type) {
+        case ShaderType.GRAYSCALE:
+            return GrayscalePipeline;
+        case ShaderType.WAVY:
+            return WavyPipeline;
+    }
+}
+
 export class ShaderManager {
     pipelineManager: Phaser.Renderer.WebGL.PipelineManager;
     shaderMask: number;
@@ -32,7 +41,8 @@ export class ShaderManager {
     }
 
     enableShader(camera: Phaser.Cameras.Scene2D.Camera, type: ShaderType, resetPipelines = true) {
-        if (this.isShaderEnabled(type)) {
+        if (this.getShader(camera, type)) {
+            console.log('Warning: same shader added twice');
             return;
         }
         if (resetPipelines) {
@@ -43,23 +53,28 @@ export class ShaderManager {
         this.shaderMask = this.shaderMask | (type as number);
     }
 
-    isShaderEnabled(type: ShaderType): boolean {
-        return (this.shaderMask & (type as number)) > 0;
+    private getShader(
+        camera: Phaser.Cameras.Scene2D.Camera,
+        type: ShaderType
+    ): Phaser.Renderer.WebGL.Pipelines.PostFXPipeline {
+        let shader = camera.getPostPipeline(shaderTypeToClass(type));
+        if (shader instanceof Phaser.Renderer.WebGL.Pipelines.PostFXPipeline) {
+            return shader;
+        }
+        return null;
     }
 
     update(camera: Phaser.Cameras.Scene2D.Camera) {
-        if (this.isShaderEnabled(ShaderType.WAVY)) {
-            this.updateWavyShader(camera);
+        const wavyShader = this.getShader(camera, ShaderType.WAVY);
+        if (wavyShader) {
+            this.updateWavyShader(wavyShader);
         }
     }
 
-    updateWavyShader(camera: Phaser.Cameras.Scene2D.Camera) {
-        let shader = camera.getPostPipeline(WavyPipeline);
-        if (shader instanceof Phaser.Renderer.WebGL.Pipelines.PostFXPipeline) {
-            shader.setTime('time');
-            shader.set1f('speed', 0.02);
-            shader.set1f('waveLen', 0.02);
-            shader.set1f('freq', 0.01);
-        }
+    updateWavyShader(shader: WavyPipeline) {
+        shader.setTime('time');
+        shader.set1f('speed', 0.02);
+        shader.set1f('waveLen', 0.02);
+        shader.set1f('freq', 0.01);
     }
 }

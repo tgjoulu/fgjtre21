@@ -32,8 +32,8 @@ export default class MainScene extends Phaser.Scene {
         this.fpsText = new FpsText(this);
         this.player.setCollideWorldBounds(true);
         this.shaderManager = this.registry.get('shaderManager');
-        this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
-        this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
+        // this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
+        // this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
         this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
