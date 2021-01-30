@@ -13,11 +13,12 @@ export default class MiniGameBase extends Phaser.Scene {
 
     create() {
         // create background/border
-        this.add.image(
+        var bg = this.add.image(
             this.cameras.main.width / 2,
             this.cameras.main.height / 2,
             'minigameBackground'
         );
+        bg.setScale(4);
     }
 
     update() {}
