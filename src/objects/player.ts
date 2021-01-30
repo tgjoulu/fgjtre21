@@ -13,7 +13,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setTexture('playerSprite');
         this.setScale(4);
-        this.setSize(15, 10);
+        this.body.setSize(15, 30);
+        this.body.setOffset(8, 30);
 
         // Add mouse target
         this.targetSprite = scene.physics.add.image(200, 200, 'targetSprite').setScale(0.06);
