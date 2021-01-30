@@ -1,4 +1,5 @@
 import 'phaser';
+
 import MainScene from './scenes/main';
 import MainMenuScene from './scenes/main_menu';
 
@@ -8,6 +9,9 @@ const DEFAULT_HEIGHT = 720;
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     backgroundColor: '#ffffff',
+    render: {
+        pixelArt: true,
+    },
     scale: {
         parent: 'phaser-game',
         mode: Phaser.Scale.FIT,
@@ -19,10 +23,10 @@ const config: Phaser.Types.Core.GameConfig = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
-            gravity: { y: 400 },
+            debug: true,
         },
     },
+    title: 'Degen After',
 };
 
 window.addEventListener('load', () => {
