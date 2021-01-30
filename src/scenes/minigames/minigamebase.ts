@@ -3,10 +3,12 @@ import { ShaderManager, ShaderType } from '../../shaders/shader_manager';
 
 export default class MiniGameBase extends Phaser.Scene {
     onDestroy: Function;
-    shaderManager: ShaderManager;
+    _shaderManager: ShaderManager;
+    _bounds: Phaser.Geom.Rectangle;
 
     constructor(opts: Phaser.Types.Scenes.SettingsConfig) {
         super(opts);
+        this._bounds = new Phaser.Geom.Rectangle(200, 79, 620, 420);
     }
 
     init({ onDestroy }) {
@@ -38,14 +40,18 @@ export default class MiniGameBase extends Phaser.Scene {
             this.onDestroy();
             this.scene.stop();
         });
-        this.shaderManager = this.registry.get('shaderManager');
+        this._shaderManager = this.registry.get('shaderManager');
     }
 
     update() {
         this.shaderManager.update(this.cameras.main);
     }
 
-    get(): ShaderManager {
-        return this.shaderManager;
+    get shaderManager(): ShaderManager {
+        return this._shaderManager;
+    }
+
+    get bounds(): Phaser.Geom.Rectangle {
+        return this._bounds;
     }
 }
