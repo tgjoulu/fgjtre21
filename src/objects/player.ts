@@ -1,8 +1,11 @@
+import { PhysicGraphics } from './physicGraphics';
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Constants
     readonly playerSpeed = 200;
+    readonly debugTarget = false;
 
-    targetSprite: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    targetGraphic: Phaser.GameObjects.Graphics;
     isWalking: boolean;
     movementDisabled: boolean = false;
     targetLocation: [x: number, y: number];
@@ -16,18 +19,39 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setScale(4);
         this.body.setSize(15, 30);
         this.body.setOffset(8, 30);
+        this.setCollideWorldBounds(true);
+        (this.body as Phaser.Physics.Arcade.Body).onWorldBounds = true;
+
+        (this.body as Phaser.Physics.Arcade.Body).setBoundsRectangle(
+            new Phaser.Geom.Rectangle(0, 220, 1024, 400)
+        );
 
         // Add mouse target
-        this.targetSprite = scene.physics.add.image(200, 200, 'targetSprite').setScale(0.06);
+        this.targetGraphic = scene.add.graphics({
+            lineStyle: {
+                width: 1,
+                color: 0xffffff,
+                alpha: 1,
+            },
+            fillStyle: {
+                color: 0xffffff,
+                alpha: 1,
+            },
+        });
+        scene.physics.world.enable(this.targetGraphic);
 
-        scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        this.targetGraphic.fillRect(0, 0, 20, 20);
+        (this.targetGraphic as PhysicGraphics).body.setSize(20, 20);
+
+        this.targetGraphic.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             if (this.movementDisabled) return;
             this.setTarget(pointer.x, pointer.y);
         });
 
+        // When player collidies with target
         scene.physics.add.overlap(
             this,
-            this.targetSprite,
+            this.targetGraphic,
             (playerTargetCollidier) => {
                 this.isWalking = false;
                 playerTargetCollidier.body.stop();
@@ -35,13 +59,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             undefined,
             this
         );
+
+        // Stop velocity when hitting world bounds
+        this.scene.physics.world.on('worldbounds', () => {
+            this.setVelocity(0);
+        });
     }
 
     setTarget(x: number, y: number) {
         this.targetLocation = [x, y];
-        this.targetSprite.setPosition(x, y);
+        this.targetGraphic.setPosition(x, y);
 
         this.isWalking = true;
-        this.scene.physics.moveToObject(this, this.targetSprite, this.playerSpeed);
+        this.scene.physics.moveToObject(this, this.targetGraphic, this.playerSpeed);
     }
 }
