@@ -1,5 +1,8 @@
-export default class MainScene extends Phaser.Scene {
+import { ShaderManager } from '../shaders/shader_manager';
+
+export default class MainMenuScene extends Phaser.Scene {
     startText: Phaser.GameObjects.Text;
+    hbSounds: Phaser.Scene;
 
     constructor() {
         super({ key: 'MainMenuScene' });
@@ -15,9 +18,17 @@ export default class MainScene extends Phaser.Scene {
             .setInteractive();
 
         this.startText.on('pointerup', () => {
+            this.setGlobals();
             this.scene.start('MainScene');
         });
+
+        this.scene.launch('heartbeatSounds');
     }
 
     update() {}
+
+    setGlobals(): void {
+        // TODO if there's preload scene, init there instead
+        this.registry.set('shaderManager', new ShaderManager(this.game));
+    }
 }

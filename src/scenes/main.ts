@@ -2,15 +2,13 @@ import Player from '../objects/player';
 import FpsText from '../objects/fpsText';
 import PointerPosText from '../objects/pointerPosText';
 import Thing from '../objects/thing';
-
-import playerSpriteImage from '../assets/player_static.png';
-import targetSpriteImage from '../assets/target.png';
-import bgLayerImage from '../assets/bg_layer.png';
+import { ShaderManager, ShaderType } from '../shaders/shader_manager';
 
 export default class MainScene extends Phaser.Scene {
     fpsText: Phaser.GameObjects.Text;
     pointerText: Phaser.GameObjects.Text;
     player: Player;
+    shaderManager: ShaderManager;
 
     constructor() {
         super({ key: 'MainScene' });
@@ -18,9 +16,9 @@ export default class MainScene extends Phaser.Scene {
 
     preload() {
         // Move these to preload scene when time
-        this.load.image('playerSprite', playerSpriteImage);
-        this.load.image('targetSprite', targetSpriteImage);
-        this.load.image('bg_layer', bgLayerImage);
+        this.load.image('playerSprite', '../assets/player_static.png');
+        this.load.image('targetSprite', '../assets/target.png');
+        this.load.image('bg_layer', '../assets/bg_layer.png');
     }
 
     create() {
@@ -29,6 +27,9 @@ export default class MainScene extends Phaser.Scene {
         this.player = new Player(this, 90, 250);
         this.fpsText = new FpsText(this);
         this.player.setCollideWorldBounds(true);
+        this.shaderManager = this.registry.get('shaderManager');
+        //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
+        //this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
         this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
@@ -39,5 +40,6 @@ export default class MainScene extends Phaser.Scene {
         this.fpsText.update();
         this.pointerText.update();
         this.player.update();
+        this.shaderManager.update(this.cameras.main);
     }
 }
