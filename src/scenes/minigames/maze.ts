@@ -6,10 +6,6 @@ export default class Maze extends MiniGameBase {
         super({ key: 'maze' });
     }
 
-    preload() {
-        super.preload();
-    }
-
     create() {
         super.create();
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);

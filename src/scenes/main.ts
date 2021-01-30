@@ -14,13 +14,6 @@ export default class MainScene extends Phaser.Scene {
         super({ key: 'MainScene' });
     }
 
-    preload() {
-        // Move these to preload scene when time
-        this.load.image('playerSprite', '../assets/player_static.png');
-        this.load.image('targetSprite', '../assets/target.png');
-        this.load.image('bg_layer', '../assets/bg_layer.png');
-    }
-
     create() {
         this.add.image(512, 288, 'bg_layer').setScale(4);
 
