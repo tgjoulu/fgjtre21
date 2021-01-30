@@ -1,6 +1,6 @@
 export default class PointerPosText extends Phaser.GameObjects.Text {
-    pointerX: integer;
-    pointerY: integer;
+    pointerX: integer = 0;
+    pointerY: integer = 0;
 
     constructor(scene: Phaser.Scene) {
         super(scene, scene.cameras.main.width - 10, 10, '', { color: 'black', fontSize: '28px' });
