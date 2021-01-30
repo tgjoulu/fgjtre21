@@ -35,6 +35,7 @@ export default class MainScene extends Phaser.Scene {
 
         // save interactive points to a list and loop them here
         const fridge = new Thing(this, 610, 220, this.player, 'maze');
+        const bed = new Thing(this, 77, 331, this.player, 'maze');
     }
 
     update() {
