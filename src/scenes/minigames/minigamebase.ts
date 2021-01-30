@@ -3,7 +3,7 @@ import { ShaderManager, ShaderType } from '../../shaders/shader_manager';
 
 export default class MiniGameBase extends Phaser.Scene {
     onDestroy: Function;
-    shaderManager: ShaderManager;
+    _shaderManager: ShaderManager;
 
     constructor(opts: Phaser.Types.Scenes.SettingsConfig) {
         super(opts);
@@ -38,14 +38,14 @@ export default class MiniGameBase extends Phaser.Scene {
             this.onDestroy();
             this.scene.stop();
         });
-        this.shaderManager = this.registry.get('shaderManager');
+        this._shaderManager = this.registry.get('shaderManager');
     }
 
     update() {
         this.shaderManager.update(this.cameras.main);
     }
 
-    get(): ShaderManager {
-        return this.shaderManager;
+    get shaderManager(): ShaderManager {
+        return this._shaderManager;
     }
 }
