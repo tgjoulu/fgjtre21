@@ -2,9 +2,11 @@ import Player from './player';
 
 export default class Thing extends Phaser.GameObjects.Rectangle {
     player: Player;
+    parentScene: Phaser.Scene;
 
     constructor(scene: Phaser.Scene, x: number, y: number, player: Player, minigameKey: string) {
         super(scene, x, y, 64, 64, 1, 0.5);
+        this.parentScene = scene;
         this.setInteractive();
 
         this.player = player;
@@ -13,10 +15,10 @@ export default class Thing extends Phaser.GameObjects.Rectangle {
 
         this.on('pointerup', (pointer: Phaser.Input.Pointer) => {
             if (this.playerIsClose()) {
-                this.player.movementDisabled = true;
+                this.parentScene.input.enabled = false;
                 scene.scene.launch(minigameKey, {
                     onDestroy: () => {
-                        this.player.movementDisabled = false;
+                        this.parentScene.input.enabled = true;
                     },
                 });
             }

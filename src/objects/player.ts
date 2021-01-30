@@ -7,7 +7,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     targetGraphic: Phaser.GameObjects.Graphics;
     isWalking: boolean;
-    movementDisabled: boolean = false;
     targetLocation: [x: number, y: number];
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -44,7 +43,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         (this.targetGraphic as PhysicGraphics).body.setSize(20, 20);
 
         this.targetGraphic.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            if (this.movementDisabled) return;
             this.setTarget(pointer.x, pointer.y);
         });
 
