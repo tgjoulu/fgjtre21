@@ -2,7 +2,7 @@ import { PhysicGraphics } from './physicGraphics';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Constants
-    readonly playerSpeed = 200;
+    readonly playerSpeed = 2100;
     readonly debugTarget = false;
 
     targetGraphic: Phaser.GameObjects.Graphics;

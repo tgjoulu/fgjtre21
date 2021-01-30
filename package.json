@@ -41,6 +41,7 @@
         "**/*": "prettier --write --ignore-unknown"
     },
     "dependencies": {
+        "open-simplex-noise": "^2.4.0",
         "phaser": "^3.52.0"
     }
 }
