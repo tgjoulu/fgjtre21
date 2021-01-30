@@ -14,6 +14,8 @@ then start serving the dev server and watching files with
 npm run start
 ```
 
+The development server should now be running from [http://localhost:8080](http://localhost:8080)
+
 ## Deployment
 
 Build production version with
