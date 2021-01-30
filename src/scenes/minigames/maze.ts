@@ -7,13 +7,6 @@ export default class Maze extends MiniGameBase {
         super({ key: 'maze' });
     }
 
-    preload() {
-        super.preload();
-        this.load.image('mazeBackground', '../../assets/minigame_1_bg.png');
-        this.load.image('hand', '../../assets/hand.png');
-        this.load.image('handLine', '../../assets/handline.png');
-    }
-
     create() {
         super.create();
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
@@ -21,7 +14,7 @@ export default class Maze extends MiniGameBase {
             .image(
                 this.cameras.main.width / 2 + 58,
                 this.cameras.main.height / 2 + 33,
-                'mazeBackground'
+                'minigame_1_bg'
             )
             .setScale(4);
 
