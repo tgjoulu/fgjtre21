@@ -1,6 +1,6 @@
 export default class MazeHand extends Phaser.Physics.Arcade.Sprite {
     linePoints = [
-        new Phaser.Math.Vector2(818, 500),
+        new Phaser.Math.Vector2(813, 500),
         new Phaser.Math.Vector2(750, 450),
     ] as Phaser.Math.Vector2[];
     isPointerDown = false;
@@ -19,7 +19,7 @@ export default class MazeHand extends Phaser.Physics.Arcade.Sprite {
         this.body.setSize(10, 20);
         this.body.setOffset(0, 0);
         this.setDepth(2);
-        this.setOrigin(0.8, 0.8);
+        this.setOrigin(0.5, 0.5);
 
         this.setInteractive({ draggable: true });
         this.input.draggable = true;
@@ -40,7 +40,7 @@ export default class MazeHand extends Phaser.Physics.Arcade.Sprite {
             this.isPointerDown = true;
 
             if (this.isDragging) {
-                this.linePoints.push(new Phaser.Math.Vector2(pointer.x, pointer.y));
+                this.linePoints.push(new Phaser.Math.Vector2(this.x, this.y));
             }
         });
 
@@ -56,18 +56,23 @@ export default class MazeHand extends Phaser.Physics.Arcade.Sprite {
                 if (
                     Phaser.Math.Distance.Between(x, y, this.prevPointer.x, this.prevPointer.y) > 10
                 ) {
-                    const newAngle = Math.atan2(this.prevPointer.x - x, this.prevPointer.y - y);
-                    console.log(Phaser.Math.RadToDeg(newAngle));
+                    // const newAngle =
+                    //     Math.atan2(this.prevPointer.x - x, this.prevPointer.y - y) + 45;
+                    const newAngle = Phaser.Math.Angle.BetweenPoints(
+                        new Phaser.Math.Vector2(this.prevPointer.x, this.prevPointer.y),
+                        new Phaser.Math.Vector2(x, y)
+                    );
+
                     this.angle = newAngle;
-                    this.setAngle(Phaser.Math.RadToDeg(newAngle) - 45);
+                    this.setRotation(newAngle + 1.9);
 
                     this.prevPointer.x = x;
                     this.prevPointer.y = y;
-                    this.linePoints.push(new Phaser.Math.Vector2(pointer.x, pointer.y));
-                    this.handRope.destroy();
+                    this.linePoints.push(new Phaser.Math.Vector2(this.x - 15, this.y - 30));
+                    -this.handRope.destroy();
                     this.handRope = this.scene.add.rope(
-                        0,
-                        0,
+                        10,
+                        30,
                         'handLine',
                         undefined,
                         this.linePoints
