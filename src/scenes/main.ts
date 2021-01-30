@@ -35,6 +35,7 @@ export default class MainScene extends Phaser.Scene {
         fridge.on('pointerup', () => {
             this.heartbeatSounds.increase();
         });
+        const bed = new Thing(this, 77, 331, this.player, 'maze');
 
         const microwave = new Thing(this, 860, 235, this.player, 'pizza');
     }
