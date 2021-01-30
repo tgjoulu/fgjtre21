@@ -1,6 +1,7 @@
 import Player from '../objects/player';
 import FpsText from '../objects/fpsText';
 import PointerPosText from '../objects/pointerPosText';
+import Thing from '../objects/thing';
 
 import playerSpriteImage from '../assets/player_static.png';
 import targetSpriteImage from '../assets/target.png';
@@ -29,6 +30,9 @@ export default class MainScene extends Phaser.Scene {
         this.fpsText = new FpsText(this);
         this.player.setCollideWorldBounds(true);
         this.pointerText = new PointerPosText(this);
+
+        // save interactive points to a list and loop them here
+        const fridge = new Thing(this, 610, 220, this.player, 'maze');
     }
 
     update() {

@@ -4,6 +4,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     targetSprite: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     isWalking: boolean;
+    movementDisabled: boolean = false;
     targetLocation: [x: number, y: number];
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -20,6 +21,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.targetSprite = scene.physics.add.image(200, 200, 'targetSprite').setScale(0.06);
 
         scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            if (this.movementDisabled) return;
             this.setTarget(pointer.x, pointer.y);
         });
 
