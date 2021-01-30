@@ -29,6 +29,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('bg_layer', '../assets/bg_layer.png');
         this.load.image('hand', '../assets/hand.png');
         this.load.image('minigameBackground', '../../assets/minigame_bg.png');
+        this.load.image('pizzaGameBackground', '../../assets/miniigame_mircro_bg.png');
 
         this.load.audio('heartbeat_slow', '../assets/sound/HB-100bpm.wav');
 

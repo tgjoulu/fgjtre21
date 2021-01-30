@@ -3,7 +3,7 @@ import MiniGameBase from './minigamebase';
 import { Noise2D, makeNoise2D } from 'open-simplex-noise';
 
 export default class Pizza extends MiniGameBase {
-    private micro: Phaser.GameObjects.Rectangle;
+    private micro: Phaser.Geom.Rectangle;
     private handContainer: Phaser.GameObjects.Container;
     private hand: Phaser.GameObjects.Image;
     private pizza: Phaser.GameObjects.Rectangle;
@@ -22,13 +22,19 @@ export default class Pizza extends MiniGameBase {
 
     create() {
         super.create();
-        // Temp rects
-        this.micro = this.add.rectangle(
-            this.bounds.x + this.bounds.width / 2 - 50,
-            this.bounds.y + this.bounds.height / 2,
-            150,
-            100,
-            0x1166ff
+
+        var bg = this.add.image(
+            this.cameras.main.width / 2,
+            this.cameras.main.height / 2,
+            'pizzaGameBackground'
+        );
+        bg.setScale(4);
+
+        this.micro = new Phaser.Geom.Rectangle(
+            this.bounds.x + this.bounds.width / 2 - 95,
+            this.bounds.y + this.bounds.height / 2 - 45,
+            220,
+            150
         );
         this.handContainer = this.add.container(
             this.bounds.x + 50,
@@ -46,7 +52,7 @@ export default class Pizza extends MiniGameBase {
             this.bounds.height * 0.3
         );
         this.noise2D = makeNoise2D(Date.now());
-        this.successBounds = { x: this.micro.x + this.micro.width / 2, width: 100 };
+        this.successBounds = { x: this.micro.x, width: 100 };
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             if (this.clickEnabled) {
                 this.resolveClick();
@@ -86,8 +92,7 @@ export default class Pizza extends MiniGameBase {
 
     private resolveClick() {
         const halfWidth = this.successBounds.width / 2;
-        const pizzaX = this.handContainer.x + this.handContainer.width / 2 + this.pizzaOffset.x;
-
+        const pizzaX = this.handContainer.x + this.pizzaOffset.x;
         if (
             pizzaX > this.successBounds.x - halfWidth &&
             pizzaX < this.successBounds.x + halfWidth
