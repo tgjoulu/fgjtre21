@@ -1,7 +1,5 @@
 import 'phaser';
 
-import minigameBg from '../../assets/minigame_bg.png';
-
 export default class MiniGameBase extends Phaser.Scene {
     onDestroy: Function;
 
@@ -14,7 +12,7 @@ export default class MiniGameBase extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('minigameBackground', minigameBg);
+        this.load.image('minigameBackground', '../../assets/minigame_bg.png');
     }
 
     create() {
