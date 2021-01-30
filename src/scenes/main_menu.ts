@@ -1,5 +1,3 @@
-import MainScene from './scenes/main';
-
 export default class MainScene extends Phaser.Scene {
     startText: Phaser.GameObjects.Text;
 
