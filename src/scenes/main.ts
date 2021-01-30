@@ -25,8 +25,9 @@ export default class MainScene extends Phaser.Scene {
         this.add.image(512, 288, 'bg_layer').setScale(4);
 
         this.player = new Player(this, 90, 250);
+
         this.fpsText = new FpsText(this);
-        this.player.setCollideWorldBounds(true);
+
         this.shaderManager = this.registry.get('shaderManager');
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
