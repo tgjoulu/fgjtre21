@@ -15,10 +15,6 @@ export default class MiniGameBase extends Phaser.Scene {
         this.onDestroy = onDestroy;
     }
 
-    preload() {
-        this.load.image('minigameBackground', '../../assets/minigame_bg.png');
-    }
-
     create() {
         // create background/border
         var bg = this.add.image(

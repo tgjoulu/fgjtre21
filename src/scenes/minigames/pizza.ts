@@ -17,10 +17,6 @@ export default class Pizza extends MiniGameBase {
         super({ key: 'pizza' });
     }
 
-    preload() {
-        super.preload();
-    }
-
     create() {
         super.create();
         // Temp rects

@@ -1,24 +1,35 @@
 export default class HeartBeat extends Phaser.Scene {
+    currentHBSound: Phaser.Sound.BaseSound;
+    currentHB: number = 100;
+
     constructor() {
         super({ key: 'heartbeatSounds' });
     }
 
-    preload() {
-        this.load.audio('heartbeat_audio', [
-            '../assets/sound/HB-100bpm.wav',
-            // '../assets/sound/HB-120bpm.wav',
-            // '../assets/sound/HB-130bpm.wav',
-            // '../assets/sound/HB-150bpm.wav',
-            // '../assets/sound/HB-160bpm.wav',
-            // '../assets/sound/HB-180bpm.wav',
-            // '../assets/sound/HB-200bpm.wav',
-            // '../assets/sound/HB-210bpm.wav',
-        ]);
-    }
-
     create() {
-        this.sound.play('heartbeat_audio', {
+        this.currentHBSound = this.sound.add('heartbeat_slow', {
             loop: true,
         });
+        this.currentHBSound.play();
+    }
+
+    setBPM(bpm: number) {
+        this.currentHB = bpm;
+        this.currentHBSound = this.sound.add(`hb-${bpm}`, {
+            loop: true,
+        });
+        this.currentHBSound.play();
+    }
+
+    public increase() {
+        this.currentHBSound.stop();
+        this.setBPM(Math.min(this.currentHB + 10, 200));
+        console.log('increase');
+    }
+
+    public decrease() {
+        this.currentHBSound.stop();
+        this.setBPM(Math.max(this.currentHB - 10, 100));
+        console.log('increase');
     }
 }
