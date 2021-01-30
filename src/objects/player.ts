@@ -1,3 +1,5 @@
+import HeartBeat from './heartbeat';
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Constants
     readonly playerSpeed = 200;
