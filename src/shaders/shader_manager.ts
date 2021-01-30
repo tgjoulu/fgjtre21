@@ -73,8 +73,8 @@ export class ShaderManager {
 
     updateWavyShader(shader: WavyPipeline) {
         shader.setTime('time');
-        shader.set1f('speed', 0.02);
-        shader.set1f('waveLen', 0.02);
-        shader.set1f('freq', 0.01);
+        shader.set1f('speed', 0.01);
+        shader.set1f('waveLen', 0.01);
+        shader.set1f('freq', 0.005);
     }
 }
