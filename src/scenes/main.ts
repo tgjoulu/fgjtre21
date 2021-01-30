@@ -2,11 +2,13 @@ import Player from '../objects/player';
 import FpsText from '../objects/fpsText';
 import PointerPosText from '../objects/pointerPosText';
 import Thing from '../objects/thing';
+import { ShaderManager, ShaderType } from '../shaders/shader_manager';
 
 export default class MainScene extends Phaser.Scene {
     fpsText: Phaser.GameObjects.Text;
     pointerText: Phaser.GameObjects.Text;
     player: Player;
+    shaderManager: ShaderManager;
 
     constructor() {
         super({ key: 'MainScene' });
@@ -25,6 +27,10 @@ export default class MainScene extends Phaser.Scene {
         this.player = new Player(this, 90, 250);
 
         this.fpsText = new FpsText(this);
+
+        this.shaderManager = this.registry.get('shaderManager');
+        //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
+        //this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
         this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
@@ -35,5 +41,6 @@ export default class MainScene extends Phaser.Scene {
         this.fpsText.update();
         this.pointerText.update();
         this.player.update();
+        this.shaderManager.update(this.cameras.main);
     }
 }
