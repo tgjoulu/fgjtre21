@@ -1,3 +1,4 @@
+import { ShaderManager } from '../shaders/shader_manager';
 import MainScene from './scenes/main';
 
 export default class MainScene extends Phaser.Scene {
@@ -17,9 +18,15 @@ export default class MainScene extends Phaser.Scene {
             .setInteractive();
 
         this.startText.on('pointerup', () => {
+            this.setGlobals();
             this.scene.start('MainScene');
         });
     }
 
     update() {}
+
+    setGlobals(): void {
+        // TODO if there's preload scene, init there instead
+        this.registry.set('shaderManager', new ShaderManager(this.game));
+    }
 }
