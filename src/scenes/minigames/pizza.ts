@@ -4,9 +4,9 @@ import { Noise2D, makeNoise2D } from 'open-simplex-noise';
 
 export default class Pizza extends MiniGameBase {
     private micro: Phaser.Geom.Rectangle;
-    private handContainer: Phaser.GameObjects.Container;
+    private pizza: Phaser.GameObjects.Image;
     private hand: Phaser.GameObjects.Image;
-    private pizza: Phaser.GameObjects.Rectangle;
+    private handContainer: Phaser.GameObjects.Container;
     private clickEnabled: boolean = true;
     private handDir: number = -1;
     private handSpeed: number = 0.4;
@@ -41,8 +41,8 @@ export default class Pizza extends MiniGameBase {
             this.bounds.y + this.bounds.height - 70
         );
         this.hand = this.add.image(0, 0, 'hand').setScale(4);
-        this.pizzaOffset = { x: -30, y: -25 };
-        this.pizza = this.add.rectangle(this.pizzaOffset.x, this.pizzaOffset.y, 50, 50, 0x6666ff);
+        this.pizzaOffset = { x: -30, y: -50 };
+        this.pizza = this.add.image(this.pizzaOffset.x, this.pizzaOffset.y, 'pizza').setScale(4);
         this.handContainer.add(this.pizza);
         this.handContainer.add(this.hand);
         this.handBounds = new Phaser.Geom.Rectangle(
@@ -52,7 +52,7 @@ export default class Pizza extends MiniGameBase {
             this.bounds.height * 0.3
         );
         this.noise2D = makeNoise2D(Date.now());
-        this.successBounds = { x: this.micro.x, width: 100 };
+        this.successBounds = { x: this.micro.x, width: 120 };
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             if (this.clickEnabled) {
                 this.resolveClick();
@@ -102,12 +102,31 @@ export default class Pizza extends MiniGameBase {
             const moveHandToMicro = this.tweens.add({
                 targets: this.handContainer,
                 props: {
-                    x: { value: this.micro.x + 25, duration: 100, ease: 'Linear' },
+                    x: { value: this.micro.x + 50, duration: 100, ease: 'Linear' },
                     y: {
-                        value: this.micro.y + 15,
+                        value: this.micro.y + 50,
                         duration: 1000,
                         ease: 'Quint.easeOut',
                     },
+                },
+                onComplete: () => {
+                    // voi vitun vittu saatana
+                    // destroyChild true == ÄLÄ TUHOA TÄTÄ, makes sense
+                    this.handContainer.remove(this.hand, true);
+                    this.add.existing(this.hand);
+                    this.hand
+                        .setPosition(this.handContainer.x, this.handContainer.y)
+                        .setVisible(true);
+                    const moveHandAway = this.tweens.add({
+                        targets: this.hand,
+                        props: {
+                            y: {
+                                value: this.bounds.y + this.bounds.height + 64,
+                                duration: 500,
+                                ease: 'Cubic.easeOut',
+                            },
+                        },
+                    });
                 },
             });
         } else {
