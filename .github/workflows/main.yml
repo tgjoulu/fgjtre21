@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ release ]
   pull_request:
-    branches: [ main ]
+    branches: [ release ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,13 +28,23 @@ jobs:
 
 
       # Runs a set of commands using the runners shell
-      - name: do stuff
+      - name: checkout and reset
         run: |
           git checkout -b gh-pages
           git reset --hard main
+      - name: npm build
+        run: |
           npm install
           npm run build
+
+      - name: add dist
+        run: |
           sed -i 's/dist/#dist/' .gitignore
           git add -f dist
+
+      - name: commit and push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git commit -n -m"add dist"
           git push origin gh-pages
