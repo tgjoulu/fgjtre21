@@ -32,6 +32,8 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('pizzaGameBackground', '../../assets/miniigame_mircro_bg.png');
         this.load.image('minigame_1_bg', '../assets/minigame_1_bg.png');
         this.load.image('miniigame_mircro_bg', '../assets/miniigame_mircro_bg.png');
+        this.load.image('hand', '../../assets/hand.png');
+        this.load.image('handLine', '../../assets/handline.png');
 
         this.load.image('bag_of_chips', '../assets/bag_of_chips.png');
         this.load.image('bag', '../assets/bag.png');
