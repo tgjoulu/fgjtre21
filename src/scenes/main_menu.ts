@@ -76,6 +76,9 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('wallet', 'assets/wallet.png');
 
         this.load.image('car', 'assets/car.png');
+        this.load.image('car_good', 'assets/car_good.png');
+        this.load.image('mini_player', 'assets/mini_player.png');
+
         this.load.image('lost', 'assets/lost.png');
         this.load.image('won', 'assets/won.png');
 
