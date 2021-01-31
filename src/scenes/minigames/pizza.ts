@@ -54,11 +54,11 @@ export default class Pizza extends MiniGameBase {
         this.noise2D = makeNoise2D(Date.now());
         this.successBounds = { x: this.micro.x, width: 120 };
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            if (this.clickEnabled) {
+            if (this.clickEnabled && this.bounds.contains(pointer.x, pointer.y)) {
                 this.resolveClick();
             }
         });
-        this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
+        //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
     }
 
     update(timestamp: number, dt: number) {
