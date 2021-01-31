@@ -157,6 +157,7 @@ export default class Maze extends MiniGameBase {
 
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             if (bodyA.label === 'Circle Body' && bodyB.label == 'obstacle') {
+                this.sound.play(Phaser.Math.RND.pick(['yuck', 'aargh', 'hyiss']));
                 this.hand.startRetract();
                 this.cameras.main.shake(100, 0.01);
             }
