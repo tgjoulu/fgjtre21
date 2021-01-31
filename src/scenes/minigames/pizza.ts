@@ -9,6 +9,7 @@ export default class Pizza extends MiniGameBase {
     private handContainer: Phaser.GameObjects.Container;
     private clickEnabled: boolean = true;
     private handDir: number = -1;
+    private completed: boolean = false;
     private handSpeed: number = 0.4;
     private handShake: number = 20;
     private handBounds: Phaser.Geom.Rectangle;
@@ -29,6 +30,8 @@ export default class Pizza extends MiniGameBase {
             'pizzaGameBackground'
         );
         bg.setScale(4);
+        this.completed = false;
+        this.handDir = -1;
 
         this.micro = new Phaser.Geom.Rectangle(
             this.bounds.x + this.bounds.width / 2 - 95,
@@ -63,7 +66,7 @@ export default class Pizza extends MiniGameBase {
 
     update(timestamp: number, dt: number) {
         super.update(timestamp, dt);
-        if (this.handDir != 0) {
+        if (!this.completed) {
             this.moveHand(timestamp, dt);
             this.checkHandDir();
         }
@@ -97,7 +100,7 @@ export default class Pizza extends MiniGameBase {
             pizzaX > this.successBounds.x - halfWidth &&
             pizzaX < this.successBounds.x + halfWidth
         ) {
-            this.handDir = 0;
+            this.completed = true;
             const moveHandToMicro = this.tweens.add({
                 targets: this.handContainer,
                 props: {
@@ -127,6 +130,7 @@ export default class Pizza extends MiniGameBase {
                         },
                         onComplete: () => {
                             console.log('PIZZA GAME SUCCESS');
+                            this.completed = false;
                             this.stop(true);
                         },
                     });
