@@ -61,6 +61,7 @@ class Romu extends Phaser.Physics.Arcade.Sprite {
 
 export default class Pile extends MiniGameBase {
     hand: Phaser.GameObjects.Image;
+    phoneCompleted: boolean = false;
 
     constructor() {
         super({ key: 'pile' });
@@ -83,8 +84,16 @@ export default class Pile extends MiniGameBase {
 
         let target = new Romu(this, centerX, centerY, 'phone');
         target.on('pointerdown', () => {
-            // this.scene.launch('vastaa_luuriin');
-            this.stop(true);
+            let newScene = this.scene.get('phone');
+            this.scene.launch('phone', {
+                onDestroy: () => {
+                    this.stop(this.phoneCompleted);
+                },
+            });
+
+            newScene.events.on('onComplete', () => {
+                this.phoneCompleted = true;
+            });
         });
 
         let amount = (Phaser.Math.RND.integer() % 10) + 8;
