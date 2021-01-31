@@ -4,6 +4,7 @@ import MainScene from './scenes/main';
 import MainMenuScene from './scenes/main_menu';
 import * as MiniGames from './scenes/minigames';
 import HeartBeat from './objects/heartbeat';
+import GoodEnding from './scenes/good_ending';
 
 const DEFAULT_WIDTH = 1024;
 const DEFAULT_HEIGHT = 576;
@@ -29,6 +30,7 @@ const config: Phaser.Types.Core.GameConfig = {
         HeartBeat,
         MiniGames.Pile,
         MiniGames.Popupper,
+        GoodEnding,
     ],
     physics: {
         default: 'arcade',
