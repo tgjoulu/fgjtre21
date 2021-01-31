@@ -42,13 +42,13 @@ export default class Phone extends MiniGameBase {
     private goodEnding() {
         // TODO: call whatever to relay goodending
         console.log('Phonegame goodending');
-        this.stop();
+        this.stop(true);
     }
 
     private badEnding() {
         // TODO: call whatever to relay badending
         console.log('Phonegame badending');
-        this.stop();
+        this.stop(false);
     }
 
     private acceptClickHandler() {
