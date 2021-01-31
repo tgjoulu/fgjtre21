@@ -30,8 +30,11 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: do stuff
         run: |
+          git co -b gh-pages
+          git reset --hard main
           npm install
           npm run build
+          sed -i 's/dist/#dist' .gitignore
           git add -f dist
           git commit -n -m"add dist"
           git push origin gh-pages
