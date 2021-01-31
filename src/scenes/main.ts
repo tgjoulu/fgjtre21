@@ -10,6 +10,7 @@ export default class MainScene extends Phaser.Scene {
     pointerText: Phaser.GameObjects.Text;
     player: Player;
     shaderManager: ShaderManager;
+    heartbeatSounds: HeartBeat;
 
     bed: Thing;
     microwave: Thing;
@@ -23,8 +24,8 @@ export default class MainScene extends Phaser.Scene {
     create() {
         this.add.image(512, 288, 'bg_layer').setScale(4);
 
-        let heartbeatSounds = this.registry.get('heartbeatSounds');
-        heartbeatSounds.setBPM(60);
+        this.heartbeatSounds = this.registry.get('heartbeatSounds');
+        this.heartbeatSounds.setBPM(60);
 
         this.player = new Player(this, 90, 250);
 
