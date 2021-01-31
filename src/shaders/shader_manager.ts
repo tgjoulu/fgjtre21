@@ -1,11 +1,13 @@
 import GrayscalePipeline from './grayscale_pipeline';
 import LightPipeline from './light_pipeline';
+import RotationPipeline from './rotation_pipeline';
 import WavyPipeline from './wavy_pipeline';
 
 export enum ShaderType {
     GRAYSCALE,
     WAVY,
     LIGHT,
+    ROTATION,
 }
 
 function shaderTypeToKey(type: ShaderType): string {
@@ -16,6 +18,8 @@ function shaderTypeToKey(type: ShaderType): string {
             return WavyPipeline.KEY;
         case ShaderType.LIGHT:
             return LightPipeline.KEY;
+        case ShaderType.ROTATION:
+            return RotationPipeline.KEY;
     }
 }
 
@@ -27,6 +31,8 @@ function shaderTypeToClass(type: ShaderType) {
             return WavyPipeline;
         case ShaderType.LIGHT:
             return LightPipeline;
+        case ShaderType.ROTATION:
+            return RotationPipeline;
     }
 }
 
@@ -44,6 +50,10 @@ export class ShaderManager {
             );
             this.pipelineManager.addPostPipeline(shaderTypeToKey(ShaderType.WAVY), WavyPipeline);
             this.pipelineManager.addPostPipeline(shaderTypeToKey(ShaderType.LIGHT), LightPipeline);
+            this.pipelineManager.addPostPipeline(
+                shaderTypeToKey(ShaderType.ROTATION),
+                RotationPipeline
+            );
         }
     }
 
@@ -78,6 +88,10 @@ export class ShaderManager {
         if (lightShader) {
             this.updateLightShader(lightShader, pointer);
         }
+        const rotationShader = this.getShader(camera, ShaderType.ROTATION);
+        if (rotationShader) {
+            this.updateRotationShader(rotationShader);
+        }
     }
 
     private updateWavyShader(shader: WavyPipeline) {
@@ -86,6 +100,12 @@ export class ShaderManager {
         shader.set1f('speed', 0.01);
         shader.set1f('waveLen', 0.01);
         shader.set1f('freq', 0.005);
+    }
+
+    private updateRotationShader(shader: RotationPipeline) {
+        shader.setTime('time');
+        // No need to adjust on every update, but could scale to heartbeat
+        shader.set2f('resolution', 1024, 576);
     }
 
     private updateLightShader(shader: LightPipeline, pointer: Phaser.Input.Pointer) {

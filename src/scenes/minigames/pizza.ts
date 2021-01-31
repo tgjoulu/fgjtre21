@@ -58,7 +58,7 @@ export default class Pizza extends MiniGameBase {
                 this.resolveClick();
             }
         });
-        this.shaderManager.enableShader(this.cameras.main, ShaderType.LIGHT);
+        this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
     }
 
     update(timestamp: number, dt: number) {
