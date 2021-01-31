@@ -43,6 +43,6 @@ export default class MainScene extends Phaser.Scene {
         this.fpsText.update();
         this.pointerText.update();
         this.player.update();
-        this.shaderManager.update(this.cameras.main);
+        this.shaderManager.update(this.cameras.main, this.input.pointer1);
     }
 }

@@ -40,7 +40,7 @@ export default class MiniGameBase extends Phaser.Scene {
     }
 
     update(timestamp: number, dt: number) {
-        this.shaderManager.update(this.cameras.main);
+        this.shaderManager.update(this.cameras.main, this.input.mousePointer);
     }
 
     get shaderManager(): ShaderManager {

@@ -58,7 +58,7 @@ export default class Pizza extends MiniGameBase {
                 this.resolveClick();
             }
         });
-        this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
+        this.shaderManager.enableShader(this.cameras.main, ShaderType.LIGHT);
     }
 
     update(timestamp: number, dt: number) {
@@ -97,6 +97,7 @@ export default class Pizza extends MiniGameBase {
             pizzaX > this.successBounds.x - halfWidth &&
             pizzaX < this.successBounds.x + halfWidth
         ) {
+            // TODO hook to minigamebase and do something
             console.log('PIZZA GAME SUCCESS');
             this.handDir = 0;
             const moveHandToMicro = this.tweens.add({
