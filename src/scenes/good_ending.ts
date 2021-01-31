@@ -1,13 +1,8 @@
 import Player from '../objects/player';
 import { ShaderManager, ShaderType } from '../shaders/shader_manager';
-import HeartBeat from '../objects/heartbeat';
 
 export default class GoodEndingScene extends Phaser.Scene {
-    fpsText: Phaser.GameObjects.Text;
-    pointerText: Phaser.GameObjects.Text;
-    player: Player;
     shaderManager: ShaderManager;
-    heartbeatSounds: HeartBeat;
 
     constructor() {
         super({ key: 'GoodEnding' });
