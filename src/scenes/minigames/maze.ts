@@ -30,8 +30,8 @@ export default class Maze extends MiniGameBase {
 
         this.hand = new MazeHand(this, this.matter.world, 750, 450);
 
-        // Spotlight on hand?
-        this.shaderManager.enableShader(this.cameras.main, ShaderType.LIGHT);
+        const bpm = this.registry.get('heartbeatSounds').bpm;
+        this.shaderManager.enableShader(this.cameras.main, ShaderType.LIGHT, false);
         this.shaderManager.setLightShaderTarget(this.cameras.main, this.hand);
         this.initObstacles();
         const key = this.matter.add

@@ -39,6 +39,7 @@ function shaderTypeToClass(type: ShaderType) {
 export class ShaderManager {
     pipelineManager: Phaser.Renderer.WebGL.PipelineManager;
     shaderMask: number;
+    bpm: number = 60;
 
     constructor(game: Phaser.Game) {
         this.shaderMask = 0;
@@ -87,7 +88,8 @@ export class ShaderManager {
         return null;
     }
 
-    update(camera: Phaser.Cameras.Scene2D.Camera, pointer: Phaser.Input.Pointer) {
+    update(camera: Phaser.Cameras.Scene2D.Camera, pointer: Phaser.Input.Pointer, bpm: number) {
+        this.bpm = bpm;
         const wavyShader = this.getShader(camera, ShaderType.WAVY);
         if (wavyShader) {
             this.updateWavyShader(wavyShader);
@@ -103,11 +105,12 @@ export class ShaderManager {
     }
 
     private updateWavyShader(shader: WavyPipeline) {
+        console.log(this.bpm);
         shader.setTime('time');
         // No need to adjust on every update, but could scale to heartbeat
-        shader.set1f('speed', 0.01);
-        shader.set1f('waveLen', 0.01);
-        shader.set1f('freq', 0.005);
+        shader.set1f('speed', 0.0001 * this.bpm * 1.5);
+        shader.set1f('waveLen', 0.0001 * this.bpm * 1.5);
+        shader.set1f('freq', 0.00003 * this.bpm * 1.1);
     }
 
     private updateRotationShader(shader: RotationPipeline) {
@@ -130,7 +133,8 @@ export class ShaderManager {
         shader.set1f('tx', x / 576);
         shader.set1f('ty', 1 - y / 576);
         // No need to adjust on every update, but could scale to heartbeat
-        shader.set1f('r', 0.15);
+        const inverseBpm = 0.5 / this.bpm;
+        shader.set1f('r', Math.max(0.08, 25 * inverseBpm));
         shader.set2f('resolution', 576, 576);
     }
 }

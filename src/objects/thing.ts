@@ -1,4 +1,5 @@
 import Player from './player';
+import HeartBeat from './heartbeat';
 
 export default class Thing extends Phaser.GameObjects.Rectangle {
     player: Player;
@@ -8,6 +9,7 @@ export default class Thing extends Phaser.GameObjects.Rectangle {
     constructor(scene: Phaser.Scene, x: number, y: number, player: Player, minigameKey: string) {
         super(scene, x, y, 64, 64, 1, 0.5);
         this.parentScene = scene;
+
         this.setInteractive();
 
         this.player = player;
@@ -20,6 +22,7 @@ export default class Thing extends Phaser.GameObjects.Rectangle {
                 let newScene = scene.scene.get(minigameKey);
                 newScene.events.on('onComplete', () => {
                     this.completed = true;
+                    this.setVisible(false);
                     this.emit('onComplete');
                 });
 

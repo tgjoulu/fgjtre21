@@ -36,6 +36,8 @@ export default class MiniGameBase extends Phaser.Scene {
             this.stop(false);
         });
         this._shaderManager = this.registry.get('shaderManager');
+        const bpm = this.registry.get('heartbeatSounds').bpm;
+        this._shaderManager.enableShader(this.cameras.main, ShaderType.WAVY, false);
     }
 
     public stop(success: boolean) {
@@ -47,7 +49,9 @@ export default class MiniGameBase extends Phaser.Scene {
     }
 
     update(timestamp: number, dt: number) {
-        this.shaderManager.update(this.cameras.main, this.input.mousePointer);
+        const bpm = this.registry.get('heartbeatSounds').bpm;
+
+        this.shaderManager.update(this.cameras.main, this.input.mousePointer, bpm);
     }
 
     get shaderManager(): ShaderManager {

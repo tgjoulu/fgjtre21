@@ -34,4 +34,8 @@ export default class HeartBeat extends Phaser.Scene {
         this.setBPM(Math.max(this.currentHB - 10, 60));
         console.log('increase');
     }
+
+    get bpm(): number {
+        return this.currentHB;
+    }
 }
