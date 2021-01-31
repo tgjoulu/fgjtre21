@@ -24,7 +24,7 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
 
         this.setDepth(2);
 
-        this.setCircle(30);
+        this.setCircle(20);
 
         // Hand Rope
         this.handRope = this.scene.add.rope(813, 500, 'handLine', undefined, this.linePoints, true);
