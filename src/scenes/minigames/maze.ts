@@ -163,7 +163,6 @@ export default class Maze extends MiniGameBase {
             }
 
             if (bodyA.label === 'Circle Body' && bodyB.label == 'Key') {
-                console.log('VOITIT AASI!');
                 this.stop(true);
             }
         });
