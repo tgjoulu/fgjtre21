@@ -4,6 +4,7 @@ import HeartBeat from '../objects/heartbeat';
 export default class MainMenuScene extends Phaser.Scene {
     startText: Phaser.GameObjects.Text;
     hbSounds: Phaser.Scene;
+    theme: Phaser.Sound.BaseSound;
 
     constructor() {
         super({ key: 'MainMenuScene' });
@@ -37,6 +38,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('handLine', 'assets/handline.png');
         this.load.image('trashpile', 'assets/trashpile.png');
         this.load.image('end_bg', 'assets/end_bg.png');
+        this.load.image('logo', 'assets/logo.png');
 
         // phone game
         this.load.image('phoneGameBackgroundStart', 'assets/incoming_call.png');
@@ -81,6 +83,7 @@ export default class MainMenuScene extends Phaser.Scene {
 
         this.load.image('lost', 'assets/lost.png');
         this.load.image('won', 'assets/won.png');
+        this.load.image('start_game', 'assets/start_game.png');
 
         this.load.audio('yuck', 'assets/sound/yuck.wav');
         this.load.audio('aargh', 'assets/sound/aargh.wav');
@@ -94,6 +97,8 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('thought_bubble', 'assets/thought_bubble.png');
 
         this.load.audio('heartbeat_slow', 'assets/sound/HB-100bpm.wav');
+
+        this.load.audio('shanty', 'assets/sound/shantypaskaa.mp3');
 
         this.load.audio('hb-60', 'assets/sound/hb2_60bpm.wav');
         this.load.audio('hb-70', 'assets/sound/hb2_70bpm.wav');
@@ -114,23 +119,23 @@ export default class MainMenuScene extends Phaser.Scene {
 
     create() {
         this.createMenu();
+        const theme = this.sound.add('shanty');
+        theme.play();
     }
 
     createMenu() {
-        this.startText = this.add
-            .text(this.cameras.main.width / 2, this.cameras.main.height / 2, 'Start Game', {
-                color: '#000000',
-                fontSize: '32px',
-            })
-            .setOrigin(0.5, 0.5)
-            .setInteractive();
+        this.add.image(0, 0, 'logo').setScale(4).setOrigin(0, 0);
 
-        this.startText.on('pointerup', () => {
+        const startGameButton = this.add
+            .image(500, 300, 'start_game')
+            .setScale(4)
+            .setDepth(9999)
+            .setInteractive();
+        startGameButton.on('pointerup', () => {
+            this.sound.stopAll();
             this.setGlobals();
             this.scene.start('MainScene');
         });
-
-        this.scene.launch('heartbeatSounds');
 
         const fsbutton = this.add
             .text(this.cameras.main.width - 10, this.cameras.main.height - 10, 'Fullscreen', {
@@ -149,5 +154,6 @@ export default class MainMenuScene extends Phaser.Scene {
     setGlobals(): void {
         this.registry.set('shaderManager', new ShaderManager(this.game));
         this.registry.set('heartbeatSounds', this.scene.get('heartbeatSounds') as HeartBeat);
+        this.scene.launch('heartbeatSounds');
     }
 }
