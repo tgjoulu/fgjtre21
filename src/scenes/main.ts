@@ -41,6 +41,7 @@ export default class MainScene extends Phaser.Scene {
 
         this.add.image(410, 480, 'trashpile').setScale(4).setOrigin(0.5, 0.5);
         const trash = new Thing(this, 410, 480, this.player, 'pile');
+        const computer = new Thing(this, 340, 200, this.player, 'popupper');
     }
 
     update() {
