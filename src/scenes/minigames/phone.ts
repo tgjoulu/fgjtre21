@@ -38,7 +38,7 @@ export default class Phone extends MiniGameBase {
         this.acceptSliderButton.on('pointerdown', this.acceptClickHandler.bind(this));
 
         this.phoneRingtone = this.sound.add('phone_ringtone');
-        this.phoneRingtone.play();
+        this.phoneRingtone.play({ loop: true, delay: 1 });
 
         this.phoneCall = this.sound.add('phonecall');
         this.phoneBusy = this.sound.add('phone_busy');
