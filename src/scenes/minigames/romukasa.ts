@@ -84,15 +84,16 @@ export default class Pile extends MiniGameBase {
 
         let target = new Romu(this, centerX, centerY, 'phone');
         target.on('pointerdown', () => {
-            let newScene = this.scene.get('phone');
+            let phoneScene = this.scene.get('phone');
+            phoneScene.events.on('onComplete', () => {
+                this.phoneCompleted = true;
+            });
             this.scene.launch('phone', {
                 onDestroy: () => {
+                    this.scene.get('MainScene').input.enabled = true;
+                    console.log('ROMUKASA ONDESTROY: ' + this.phoneCompleted);
                     this.stop(this.phoneCompleted);
                 },
-            });
-
-            newScene.events.on('onComplete', () => {
-                this.phoneCompleted = true;
             });
         });
 
