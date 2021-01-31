@@ -20,6 +20,7 @@ export default class MainScene extends Phaser.Scene {
         this.add.image(512, 288, 'bg_layer').setScale(4);
 
         this.heartbeatSounds = this.registry.get('heartbeatSounds');
+        this.heartbeatSounds.setBPM(60);
 
         this.player = new Player(this, 90, 250);
 
