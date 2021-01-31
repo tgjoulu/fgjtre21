@@ -28,10 +28,8 @@ export default class MainScene extends Phaser.Scene {
 
         this.player = new Player(this, 90, 250);
 
-        this.fpsText = new FpsText(this);
-
-        this.shaderManager = this.registry.get('shaderManager');
-        this.pointerText = new PointerPosText(this);
+        // this.fpsText = new FpsText(this);
+        // this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
         const fridge = new Thing(this, 610, 220, this.player, 'maze');
@@ -48,8 +46,8 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update() {
-        this.fpsText.update();
-        this.pointerText.update();
+        // this.fpsText.update();
+        // this.pointerText.update();
         this.player.update();
 
         if (
@@ -63,6 +61,6 @@ export default class MainScene extends Phaser.Scene {
     }
 
     gameSuccess() {
-        console.log('GAME SUCCESS WOHO');
+        this.scene.start('GoodEnding');
     }
 }

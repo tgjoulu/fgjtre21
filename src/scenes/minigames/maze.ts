@@ -10,7 +10,7 @@ export default class Maze extends MiniGameBase {
             key: 'maze',
             physics: {
                 matter: {
-                    debug: true,
+                    debug: false,
                     gravity: {
                         x: 0,
                         y: 0,
