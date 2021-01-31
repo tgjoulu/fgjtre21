@@ -28,9 +28,9 @@ jobs:
             # Runs a set of commands using the runners shell
             # - name: checkout and reset
             #   run: |
-                  # cd $GITHUB_WORKSPACE
-                  # git checkout -b gh-pages
-                  # git reset --hard origin/main
+            # cd $GITHUB_WORKSPACE
+            # git checkout -b gh-pages
+            # git reset --hard origin/main
             - name: npm build
               run: |
                   npm install

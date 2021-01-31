@@ -10,7 +10,6 @@ export default class MainScene extends Phaser.Scene {
     pointerText: Phaser.GameObjects.Text;
     player: Player;
     shaderManager: ShaderManager;
-    heartbeatSounds: HeartBeat;
 
     bed: Thing;
     microwave: Thing;
@@ -24,16 +23,12 @@ export default class MainScene extends Phaser.Scene {
     create() {
         this.add.image(512, 288, 'bg_layer').setScale(4);
 
-        this.heartbeatSounds = this.registry.get('heartbeatSounds');
-        this.heartbeatSounds.setBPM(60);
+        let heartbeatSounds = this.registry.get('heartbeatSounds');
+        heartbeatSounds.setBPM(60);
 
         this.player = new Player(this, 90, 250);
 
         // this.fpsText = new FpsText(this);
-
-        this.shaderManager = this.registry.get('shaderManager');
-        //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
-        //this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
         // this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
@@ -62,7 +57,6 @@ export default class MainScene extends Phaser.Scene {
         // this.fpsText.update();
         // this.pointerText.update();
         this.player.update();
-        this.shaderManager.update(this.cameras.main, this.input.pointer1);
 
         if (
             this.bed.isComplete() &&

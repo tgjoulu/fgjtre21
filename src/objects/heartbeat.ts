@@ -38,4 +38,8 @@ export default class HeartBeat extends Phaser.Scene {
     public stop() {
         this.currentHBSound.stop();
     }
+
+    get bpm(): number {
+        return this.currentHB;
+    }
 }
