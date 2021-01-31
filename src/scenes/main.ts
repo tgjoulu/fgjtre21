@@ -37,10 +37,10 @@ export default class MainScene extends Phaser.Scene {
         // this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
-        const fridge = new Thing(this, 610, 220, this.player, 'maze');
-        fridge.on('pointerup', () => {
-            this.heartbeatSounds.increase();
-        });
+        // const fridge = new Thing(this, 610, 220, this.player, 'maze');
+        // fridge.on('pointerup', () => {
+        //     this.heartbeatSounds.increase();
+        // });
         this.bed = new Thing(this, 77, 331, this.player, 'maze');
 
         this.microwave = new Thing(this, 860, 235, this.player, 'pizza');
@@ -48,6 +48,14 @@ export default class MainScene extends Phaser.Scene {
         this.add.image(410, 480, 'trashpile').setScale(4).setOrigin(0.5, 0.5);
         this.trash = new Thing(this, 410, 480, this.player, 'pile');
         this.computer = new Thing(this, 340, 200, this.player, 'popupper');
+
+        // Failure
+        const failTimer = this.time.delayedCall(60000, () => this.gameFail(), [], this);
+        const heartBeatTimer = this.time.addEvent({
+            delay: 4000, // ms
+            callback: () => this.heartbeatSounds.increase(),
+            loop: true,
+        });
     }
 
     update() {
@@ -56,15 +64,6 @@ export default class MainScene extends Phaser.Scene {
         this.player.update();
         this.shaderManager.update(this.cameras.main, this.input.pointer1);
 
-        console.log(
-            this.bed.isComplete() +
-                ',' +
-                this.microwave.isComplete() +
-                ',' +
-                this.trash.isComplete() +
-                ',' +
-                this.computer.isComplete()
-        );
         if (
             this.bed.isComplete() &&
             this.microwave.isComplete() &&
@@ -77,5 +76,10 @@ export default class MainScene extends Phaser.Scene {
 
     gameSuccess() {
         this.scene.start('GoodEnding');
+    }
+
+    gameFail() {
+        this.heartbeatSounds.stop();
+        this.scene.start('BadEnding');
     }
 }
