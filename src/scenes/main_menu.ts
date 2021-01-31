@@ -2,7 +2,6 @@ import { ShaderManager } from '../shaders/shader_manager';
 import HeartBeat from '../objects/heartbeat';
 
 export default class MainMenuScene extends Phaser.Scene {
-    startText: Phaser.GameObjects.Text;
     hbSounds: Phaser.Scene;
 
     constructor() {
@@ -24,6 +23,7 @@ export default class MainMenuScene extends Phaser.Scene {
         //     progBar.destroy();
         // });
 
+        this.load.image('logo', '../assets/logo.png');
         this.load.image('playerSprite', '../assets/player_static.png');
         this.load.image('targetSprite', '../assets/target.png');
         this.load.image('bg_layer', '../assets/bg_layer.png');
@@ -35,6 +35,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('hand', '../../assets/hand.png');
         this.load.image('handLine', '../../assets/handline.png');
         this.load.image('trashpile', '../../assets/trashpile.png');
+        this.load.image('start_game', '../assets/start_game.png');
 
         this.load.image('bag_of_chips', '../assets/bag_of_chips.png');
         this.load.image('bag', '../assets/bag.png');
@@ -88,15 +89,17 @@ export default class MainMenuScene extends Phaser.Scene {
     }
 
     createMenu() {
-        this.startText = this.add
-            .text(this.cameras.main.width / 2, this.cameras.main.height / 2, 'Start Game', {
-                color: '#000000',
-                fontSize: '32px',
-            })
+        const bg = this.add
+            .image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'logo')
+            .setScale(4);
+
+        const startGame = this.add
+            .image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'start_game')
             .setOrigin(0.5, 0.5)
+            .setScale(4)
             .setInteractive();
 
-        this.startText.on('pointerup', () => {
+        startGame.on('pointerup', () => {
             this.setGlobals();
             this.scene.start('MainScene');
         });
