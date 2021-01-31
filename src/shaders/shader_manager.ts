@@ -64,8 +64,16 @@ export class ShaderManager {
         }
         if (resetPipelines) {
             camera.resetPostPipeline();
+            camera.setPipelineData('followTarget', null);
         }
         camera.setPostPipeline(shaderTypeToKey(type));
+    }
+
+    setLightShaderTarget(
+        camera: Phaser.Cameras.Scene2D.Camera,
+        target: Phaser.GameObjects.Components.Transform
+    ) {
+        camera.setPipelineData('followTarget', target);
     }
 
     private getShader(
@@ -86,7 +94,7 @@ export class ShaderManager {
         }
         const lightShader = this.getShader(camera, ShaderType.LIGHT);
         if (lightShader) {
-            this.updateLightShader(lightShader, pointer);
+            this.updateLightShader(lightShader, pointer, camera.pipelineData['followTarget']);
         }
         const rotationShader = this.getShader(camera, ShaderType.ROTATION);
         if (rotationShader) {
@@ -108,9 +116,19 @@ export class ShaderManager {
         shader.set2f('resolution', 1024, 576);
     }
 
-    private updateLightShader(shader: LightPipeline, pointer: Phaser.Input.Pointer) {
-        shader.set1f('tx', pointer.x / 576);
-        shader.set1f('ty', 1 - pointer.y / 576);
+    private updateLightShader(
+        shader: LightPipeline,
+        pointer: Phaser.Input.Pointer,
+        followTarget: Phaser.GameObjects.Components.Transform | null
+    ) {
+        let x = pointer.x;
+        let y = pointer.y;
+        if (followTarget) {
+            x = followTarget.x;
+            y = followTarget.y;
+        }
+        shader.set1f('tx', x / 576);
+        shader.set1f('ty', 1 - y / 576);
         // No need to adjust on every update, but could scale to heartbeat
         shader.set1f('r', 0.15);
         shader.set2f('resolution', 576, 576);
