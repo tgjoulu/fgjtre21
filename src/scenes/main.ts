@@ -38,6 +38,9 @@ export default class MainScene extends Phaser.Scene {
         const bed = new Thing(this, 77, 331, this.player, 'maze');
 
         const microwave = new Thing(this, 860, 235, this.player, 'pizza');
+
+        this.add.image(410, 480, 'trashpile').setScale(4).setOrigin(0.5, 0.5);
+        const trash = new Thing(this, 410, 480, this.player, 'pile');
     }
 
     update() {
