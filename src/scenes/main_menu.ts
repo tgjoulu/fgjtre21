@@ -26,6 +26,7 @@ export default class MainMenuScene extends Phaser.Scene {
 
         this.load.image('playerSprite', 'assets/player_static.png');
         this.load.image('targetSprite', 'assets/target.png');
+        this.load.image('exclamation', 'assets/exclamation.png');
         this.load.image('bg_layer', 'assets/bg_layer.png');
         this.load.image('hand', 'assets/hand.png');
         this.load.image('minigameBackground', 'assets/minigame_bg.png');
@@ -45,6 +46,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('declinePhoneSliderButton', 'assets/decline.png');
         this.load.audio('phonecall', 'assets/sound/puhelu.mp3');
         this.load.audio('phone_busy', 'assets/sound/telephone_busy.mp3');
+        this.load.audio('phone_ringtone', 'assets/sound/noksutune-short-Nokiatune.mp3');
 
         this.load.image('popup1', 'assets/popup1.png');
         this.load.image('popup2', 'assets/popup2.png');
@@ -75,9 +77,16 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('wallet', 'assets/wallet.png');
 
         this.load.image('car', 'assets/car.png');
+        this.load.image('car_good', 'assets/car_good.png');
+        this.load.image('mini_player', 'assets/mini_player.png');
+
         this.load.image('lost', 'assets/lost.png');
         this.load.image('won', 'assets/won.png');
         this.load.image('start_game', 'assets/start_game.png');
+
+        this.load.audio('yuck', 'assets/sound/yuck.wav');
+        this.load.audio('aargh', 'assets/sound/aargh.wav');
+        this.load.audio('hyiss', 'assets/sound/hyiss.wav');
 
         this.load.spritesheet('walking', 'assets/walking.png', {
             frameWidth: 27,

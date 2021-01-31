@@ -46,9 +46,9 @@ export default class MainScene extends Phaser.Scene {
         this.computer = new Thing(this, 340, 200, this.player, 'popupper');
 
         // Failure
-        const failTimer = this.time.delayedCall(60000, () => this.gameFail(), [], this);
+        const failTimer = this.time.delayedCall(80000, () => this.gameFail(), [], this);
         const heartBeatTimer = this.time.addEvent({
-            delay: 4000, // ms
+            delay: 8000, // ms
             callback: () => this.heartbeatSounds.increase(),
             loop: true,
         });

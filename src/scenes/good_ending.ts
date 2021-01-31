@@ -16,8 +16,19 @@ export default class GoodEndingScene extends Phaser.Scene {
         wonText.setBounce(1, 0.2);
         wonText.setCollideWorldBounds(true);
 
-        const car = this.physics.add.image(500, 500, 'car').setScale(4);
+        const car = this.physics.add.image(500, 500, 'car_good').setScale(4);
         this.physics.accelerateTo(car, 1000, 500, 60, 300, 300);
+
+        const retry = this.add
+            .text(this.cameras.main.width - 10, this.cameras.main.height - 10, 'Restart', {
+                color: '#FFFFFF',
+                fontSize: '32px',
+            })
+            .setOrigin(1, 1)
+            .setInteractive();
+        retry.on('pointerup', () => {
+            this.scene.start('MainScene');
+        });
     }
 
     update() {}
