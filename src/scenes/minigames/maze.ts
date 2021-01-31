@@ -30,6 +30,9 @@ export default class Maze extends MiniGameBase {
         this.hand = new MazeHand(this, this.matter.world, 750, 450);
         this.input.setDraggable(this.hand);
 
+        // Spotlight on hand?
+        this.shaderManager.enableShader(this.cameras.main, ShaderType.LIGHT);
+        this.shaderManager.setLightShaderTarget(this.cameras.main, this.hand);
         this.initObstacles();
         const key = this.matter.add
             .image(255, 131, 'key', undefined, {
