@@ -158,6 +158,7 @@ export default class Maze extends MiniGameBase {
         this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             if (bodyA.label === 'Circle Body' && bodyB.label == 'obstacle') {
                 this.hand.startRetract();
+                this.cameras.main.shake(100, 0.01);
             }
 
             if (bodyA.label === 'Circle Body' && bodyB.label == 'Key') {
