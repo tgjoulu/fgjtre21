@@ -31,11 +31,19 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('minigameBackground', '../../assets/minigame_bg.png');
         this.load.image('pizzaGameBackground', '../../assets/miniigame_mircro_bg.png');
         this.load.image('minigame_1_bg', '../assets/minigame_1_bg.png');
-        this.load.image('miniigame_mircro_bg', '../assets/miniigame_mircro_bg.png');
+        this.load.image('minigame_popup_bg', '../assets/minigame_popup_bg.png');
         this.load.image('hand', '../../assets/hand.png');
         this.load.image('handLine', '../../assets/handline.png');
         this.load.image('trashpile', '../../assets/trashpile.png');
         this.load.image('start_game', '../assets/start_game.png');
+        this.load.image('end_bg', '../../assets/end_bg.png');
+
+        this.load.image('popup1', '../../assets/popup1.png');
+        this.load.image('popup2', '../../assets/popup2.png');
+        this.load.image('popup3', '../../assets/popup3.png');
+        this.load.image('popup4', '../../assets/popup4.png');
+        this.load.image('popup5', '../../assets/popup5.png');
+        this.load.image('popup6', '../../assets/popup6.png');
 
         this.load.image('bag_of_chips', '../assets/bag_of_chips.png');
         this.load.image('bag', '../assets/bag.png');
@@ -57,6 +65,10 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('shirt', '../assets/shirt.png');
         this.load.image('sock', '../assets/sock.png');
         this.load.image('wallet', '../assets/wallet.png');
+
+        this.load.image('car', '../../assets/car.png');
+        this.load.image('lost', '../../assets/lost.png');
+        this.load.image('won', '../../assets/won.png');
 
         this.load.spritesheet('walking', '../assets/walking.png', {
             frameWidth: 27,

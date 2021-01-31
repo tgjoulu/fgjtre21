@@ -8,6 +8,7 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
     isPointerDown = false;
     isDragging = false;
     isRetracting = false;
+    isFailed = false;
     prevPointer = new Phaser.Math.Vector2();
     handRope: Phaser.GameObjects.Rope;
     angle: number;
@@ -16,37 +17,24 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
         super(world, x, y, 'hand');
 
         scene.add.existing(this);
+        this.setInteractive();
 
         this.setTexture('hand');
         this.setScale(4);
 
         this.setDepth(2);
 
-        this.setInteractive({ draggable: true });
-        this.input.draggable = true;
         this.setCircle(30);
 
         // Hand Rope
         this.handRope = this.scene.add.rope(813, 500, 'handLine', undefined, this.linePoints, true);
 
-        // Events
-        this.on('drag', (_pointer, dragX, dragY) => {
-            this.isDragging = true;
-            if (this.linePoints.length < this.maxLength && !this.isRetracting) {
-                this.setPosition(dragX, dragY);
-            }
-        });
-        this.on('dragend', () => {
-            this.isDragging = false;
-        });
-
-        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            if (!this.isRetracting) {
+        this.on('pointerdown', (pointer, deltaX, deltaY, deltaZ) => {
+            if (!this.isRetracting && !this.isFailed) {
                 this.isPointerDown = true;
+                this.isDragging = true;
 
-                if (this.isDragging) {
-                    this.linePoints.push(new Phaser.Math.Vector2(this.x, this.y));
-                }
+                this.linePoints.push(new Phaser.Math.Vector2(this.x, this.y));
             }
         });
 
@@ -54,7 +42,9 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
             if (this.linePoints.length > 2) {
                 this.isRetracting = true;
             }
+            this.isDragging = false;
             this.isPointerDown = false;
+            this.isFailed = false;
         });
 
         this.scene.input.on('pointermove', (_pointer: Phaser.Input.Pointer) => {
@@ -92,17 +82,20 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
                 }
             }
         });
+
+        this.scene.physics.world.on('worldbounds', () => {
+            this.startRetract();
+        });
     }
 
     startRetract() {
-        this.input.draggable = false;
         this.isRetracting = true;
         this.isPointerDown = false;
+        this.isFailed = true;
+        this.isDragging = false;
     }
 
     reset() {
-        this.input.draggable = true;
-
         this.setRotation(0);
         this.setPosition(750, 450);
         this.handRope.destroy();
@@ -112,6 +105,11 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
     }
 
     update(dt: number) {
+        if (this.isDragging) {
+            if (this.linePoints.length < this.maxLength && !this.isRetracting) {
+                this.setPosition(this.scene.input.mousePointer.x, this.scene.input.mousePointer.y);
+            }
+        }
         if (this.isRetracting) {
             this.linePoints.splice(-1, 1);
             -this.handRope.destroy();

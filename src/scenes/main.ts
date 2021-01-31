@@ -12,6 +12,11 @@ export default class MainScene extends Phaser.Scene {
     shaderManager: ShaderManager;
     heartbeatSounds: HeartBeat;
 
+    bed: Thing;
+    microwave: Thing;
+    trash: Thing;
+    computer: Thing;
+
     constructor() {
         super({ key: 'MainScene' });
     }
@@ -24,31 +29,53 @@ export default class MainScene extends Phaser.Scene {
 
         this.player = new Player(this, 90, 250);
 
-        this.fpsText = new FpsText(this);
+        // this.fpsText = new FpsText(this);
 
         this.shaderManager = this.registry.get('shaderManager');
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.GRAYSCALE, false);
-        this.pointerText = new PointerPosText(this);
+        // this.pointerText = new PointerPosText(this);
 
         // save interactive points to a list and loop them here
         const fridge = new Thing(this, 610, 220, this.player, 'maze');
         fridge.on('pointerup', () => {
             this.heartbeatSounds.increase();
         });
-        const bed = new Thing(this, 77, 331, this.player, 'maze');
+        this.bed = new Thing(this, 77, 331, this.player, 'maze');
 
-        const microwave = new Thing(this, 860, 235, this.player, 'pizza');
+        this.microwave = new Thing(this, 860, 235, this.player, 'pizza');
 
         this.add.image(410, 480, 'trashpile').setScale(4).setOrigin(0.5, 0.5);
-        const trash = new Thing(this, 410, 480, this.player, 'pile');
-        const computer = new Thing(this, 340, 200, this.player, 'popupper');
+        this.trash = new Thing(this, 410, 480, this.player, 'pile');
+        this.computer = new Thing(this, 340, 200, this.player, 'popupper');
     }
 
     update() {
-        this.fpsText.update();
-        this.pointerText.update();
+        // this.fpsText.update();
+        // this.pointerText.update();
         this.player.update();
         this.shaderManager.update(this.cameras.main, this.input.pointer1);
+
+        console.log(
+            this.bed.isComplete() +
+                ',' +
+                this.microwave.isComplete() +
+                ',' +
+                this.trash.isComplete() +
+                ',' +
+                this.computer.isComplete()
+        );
+        if (
+            this.bed.isComplete() &&
+            this.microwave.isComplete() &&
+            this.trash.isComplete() &&
+            this.computer.isComplete()
+        ) {
+            this.gameSuccess();
+        }
+    }
+
+    gameSuccess() {
+        this.scene.start('GoodEnding');
     }
 }
