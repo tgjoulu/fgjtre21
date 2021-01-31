@@ -37,6 +37,14 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('trashpile', '../../assets/trashpile.png');
         this.load.image('end_bg', '../../assets/end_bg.png');
 
+        // phone game
+        this.load.image('phoneGameBackgroundStart', '../../assets/incoming_call.png');
+        this.load.image('phoneGameBackgroundEnd', '../../assets/ongoing_call.png');
+        this.load.image('acceptPhoneSliderButton', '../assets/accept.png');
+        this.load.image('declinePhoneSliderButton', '../assets/decline.png');
+        this.load.audio('phonecall', '../assets/sound/puhelu.mp3');
+        this.load.audio('phone_busy', '../assets/sound/telephone_busy.mp3');
+
         this.load.image('popup1', '../../assets/popup1.png');
         this.load.image('popup2', '../../assets/popup2.png');
         this.load.image('popup3', '../../assets/popup3.png');
