@@ -9,7 +9,6 @@ export default class Maze extends MiniGameBase {
 
     create() {
         super.create();
-        //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
         const bg = this.add
             .image(
                 this.cameras.main.width / 2 + 58,
@@ -20,6 +19,9 @@ export default class Maze extends MiniGameBase {
 
         const hand = new MazeHand(this, 750, 450);
         this.input.setDraggable(hand);
+        // Spotlight on hand?
+        // this.shaderManager.enableShader(this.cameras.main, ShaderType.LIGHT);
+        // this.shaderManager.setLightShaderTarget(this.cameras.main, hand);
     }
 
     update(timestamp: number, dt: number) {
