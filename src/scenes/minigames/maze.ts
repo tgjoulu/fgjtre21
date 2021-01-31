@@ -23,6 +23,7 @@ export default class Maze extends MiniGameBase {
     create() {
         super.create();
         //this.shaderManager.enableShader(this.cameras.main, ShaderType.WAVY);
+
         const bg = this.add
             .image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'minigame_1_bg')
             .setScale(4);
