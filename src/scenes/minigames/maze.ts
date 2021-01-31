@@ -28,7 +28,6 @@ export default class Maze extends MiniGameBase {
             .setScale(4);
 
         this.hand = new MazeHand(this, this.matter.world, 750, 450);
-        this.input.setDraggable(this.hand);
 
         // Spotlight on hand?
         this.shaderManager.enableShader(this.cameras.main, ShaderType.LIGHT);
