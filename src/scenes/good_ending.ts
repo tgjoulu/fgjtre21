@@ -27,6 +27,7 @@ export default class GoodEndingScene extends Phaser.Scene {
             .setOrigin(1, 1)
             .setInteractive();
         retry.on('pointerup', () => {
+            this.scene.remove('MainScene');
             this.scene.start('MainScene');
         });
     }
