@@ -10,6 +10,7 @@ export default class BadEndingScene extends Phaser.Scene {
 
     create() {
         this.add.image(0, 0, 'end_bg').setScale(4).setOrigin(0, 0);
+        this.add.image(410, 330, 'mini_player').setScale(4);
         const lostText = this.physics.add.image(500, 50, 'lost').setScale(4);
         lostText.setOrigin(0.5, 0);
         lostText.setVelocity(0, 880);
