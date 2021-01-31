@@ -2,8 +2,8 @@ import MiniGameBase from './minigamebase';
 import Popup from '../../objects/popup';
 
 export default class Popupper extends MiniGameBase {
-    private minDelayMS: number = 500;
-    private maxDelayMS: number = 3000;
+    private minDelayMS: number = 200;
+    private maxDelayMS: number = 2000;
     private initialAmount: number = 3;
     private border: number = 100;
     private spawnNextTimestamp: number = 0;
@@ -17,7 +17,7 @@ export default class Popupper extends MiniGameBase {
     create() {
         super.create();
         const bg = this.add
-            .image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'minigame_1_bg')
+            .image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'minigame_popup_bg')
             .setScale(4);
 
         for (let i = 0; i < this.initialAmount; ++i) {
@@ -32,18 +32,16 @@ export default class Popupper extends MiniGameBase {
             this.stop();
         }
         if (this.spawnPopup(timestamp)) {
-            this.spawnNextTimestamp =
-                timestamp + Math.random() * (this.maxDelayMS - this.minDelayMS);
+            this.setupNextSpawnTime(timestamp);
         }
     }
 
-    forceSpawnPopup() {
+    private forceSpawnPopup() {
         const randX =
             this.bounds.x + this.border + Math.random() * (this.bounds.width - this.border * 2);
         const randY =
             this.bounds.y + this.border + Math.random() * (this.bounds.height - this.border * 2);
         let popup = new Popup(this, randX, randY);
-        popup.setInteractive();
         popup.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             this.popupCount--;
             popup.destroy();
@@ -51,7 +49,7 @@ export default class Popupper extends MiniGameBase {
         this.popupCount++;
     }
 
-    spawnPopup(timestamp: number) {
+    private spawnPopup(timestamp: number) {
         if (this.popupCount == 0 || this.popupCount >= this.maxPopupCount) {
             return false;
         }
@@ -60,5 +58,9 @@ export default class Popupper extends MiniGameBase {
         }
         this.forceSpawnPopup();
         return true;
+    }
+
+    private setupNextSpawnTime(curTime: number) {
+        this.spawnNextTimestamp = curTime + Math.random() * (this.maxDelayMS - this.minDelayMS);
     }
 }
