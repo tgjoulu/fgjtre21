@@ -89,6 +89,9 @@ export class ShaderManager {
     }
 
     update(camera: Phaser.Cameras.Scene2D.Camera, pointer: Phaser.Input.Pointer, bpm: number) {
+        if (this.bpm != bpm) {
+            camera.shake(100, 0.005);
+        }
         this.bpm = bpm;
         const wavyShader = this.getShader(camera, ShaderType.WAVY);
         if (wavyShader) {
