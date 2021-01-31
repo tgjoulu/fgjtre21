@@ -51,6 +51,6 @@ export default class Thing extends Phaser.GameObjects.Rectangle {
     }
 
     playerIsClose() {
-        return Phaser.Math.Distance.Between(this.x, this.y, this.player.x, this.player.y) < 95;
+        return Phaser.Math.Distance.Between(this.x, this.y, this.player.x, this.player.y) < 110;
     }
 }
