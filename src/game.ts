@@ -31,6 +31,7 @@ const config: Phaser.Types.Core.GameConfig = {
         HeartBeat,
         MiniGames.Pile,
         MiniGames.Popupper,
+        MiniGames.Phone,
         GoodEnding,
         BadEnding,
     ],
