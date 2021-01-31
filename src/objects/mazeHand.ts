@@ -107,7 +107,7 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
     update(dt: number) {
         if (this.isDragging) {
             if (this.linePoints.length < this.maxLength && !this.isRetracting) {
-                this.setPosition(this.scene.input.mousePointer.x, this.scene.input.mousePointer.y);
+                this.setPosition(this.scene.input.x, this.scene.input.y);
             }
         }
         if (this.isRetracting) {
