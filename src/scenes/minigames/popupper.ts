@@ -29,7 +29,7 @@ export default class Popupper extends MiniGameBase {
         super.update(timestamp, dt);
         if (this.popupCount == 0) {
             console.log('Popup game BEATEN');
-            this.stop();
+            this.stop(true);
         }
         if (this.spawnPopup(timestamp)) {
             this.setupNextSpawnTime(timestamp);

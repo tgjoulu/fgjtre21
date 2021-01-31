@@ -84,7 +84,7 @@ export default class Pile extends MiniGameBase {
         let target = new Romu(this, centerX, centerY, 'phone');
         target.on('pointerdown', () => {
             // this.scene.launch('vastaa_luuriin');
-            this.stop();
+            this.stop(true);
         });
 
         let amount = (Phaser.Math.RND.integer() % 10) + 8;

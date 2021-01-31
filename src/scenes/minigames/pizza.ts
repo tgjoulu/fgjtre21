@@ -97,8 +97,6 @@ export default class Pizza extends MiniGameBase {
             pizzaX > this.successBounds.x - halfWidth &&
             pizzaX < this.successBounds.x + halfWidth
         ) {
-            // TODO hook to minigamebase and do something
-            console.log('PIZZA GAME SUCCESS');
             this.handDir = 0;
             const moveHandToMicro = this.tweens.add({
                 targets: this.handContainer,
@@ -123,9 +121,13 @@ export default class Pizza extends MiniGameBase {
                         props: {
                             y: {
                                 value: this.bounds.y + this.bounds.height + 64,
-                                duration: 500,
+                                duration: 300,
                                 ease: 'Cubic.easeOut',
                             },
+                        },
+                        onComplete: () => {
+                            console.log('PIZZA GAME SUCCESS');
+                            this.stop(true);
                         },
                     });
                 },
