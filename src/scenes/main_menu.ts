@@ -34,6 +34,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('miniigame_mircro_bg', '../assets/miniigame_mircro_bg.png');
         this.load.image('hand', '../../assets/hand.png');
         this.load.image('handLine', '../../assets/handline.png');
+        this.load.image('trashpile', '../../assets/trashpile.png');
 
         this.load.image('bag_of_chips', '../assets/bag_of_chips.png');
         this.load.image('bag', '../assets/bag.png');
@@ -60,6 +61,10 @@ export default class MainMenuScene extends Phaser.Scene {
 
         this.load.audio('heartbeat_slow', '../assets/sound/HB-100bpm.wav');
 
+        this.load.audio('hb-60', '../assets/sound/hb2_60bpm.wav');
+        this.load.audio('hb-70', '../assets/sound/hb2_70bpm.wav');
+        this.load.audio('hb-80', '../assets/sound/hb2_80bpm.wav');
+        this.load.audio('hb-90', '../assets/sound/hb2_90bpm.wav');
         this.load.audio('hb-100', '../assets/sound/hb2_100bpm.wav');
         this.load.audio('hb-110', '../assets/sound/hb2_110bpm.wav');
         this.load.audio('hb-120', '../assets/sound/hb2_120bpm.wav');
@@ -92,6 +97,17 @@ export default class MainMenuScene extends Phaser.Scene {
         });
 
         this.scene.launch('heartbeatSounds');
+
+        const fsbutton = this.add
+            .text(this.cameras.main.width - 10, this.cameras.main.height - 10, 'Fullscreen', {
+                color: '#000000',
+                fontSize: '32px',
+            })
+            .setOrigin(1, 1)
+            .setInteractive()
+            .on('pointerup', () => {
+                this.scale.toggleFullscreen();
+            });
     }
 
     update() {}

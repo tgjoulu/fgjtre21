@@ -13,7 +13,6 @@ let stuff = [
     'mask',
     'nobel',
     'panties',
-    'phone',
     'pika',
     'pizza',
     'rum',
@@ -33,8 +32,9 @@ class Romu extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setScale(4);
-        this.setOrigin(0.5);
-        this.setCollideWorldBounds(false);
+        this.setOrigin(0.5, 0.5);
+        this.setCollideWorldBounds(true);
+        this.setBounce(0.2);
         this.body.setSize(32, 32);
         this.body.setOffset(16, 16);
 
@@ -55,11 +55,13 @@ class Romu extends Phaser.Physics.Arcade.Sprite {
     public randomize() {
         this.setTexture(Phaser.Math.RND.pick(stuff));
         this.setRotation(Phaser.Math.RND.rotation());
-        this.setRandomPosition(this.x - 200, this.y - 150, 200, 200);
+        this.setRandomPosition(this.x - 200, this.y - 150, 300, 250);
     }
 }
 
 export default class Pile extends MiniGameBase {
+    hand: Phaser.GameObjects.Image;
+
     constructor() {
         super({ key: 'pile' });
     }
@@ -69,9 +71,20 @@ export default class Pile extends MiniGameBase {
         let centerX = this.cameras.main.width / 2;
         let centerY = this.cameras.main.height / 2;
 
+        this.hand = this.add
+            .image(centerX, this.cameras.main.height - 50, 'hand')
+            .setDepth(1000)
+            .setOrigin(0.1, 0.1)
+            .setScale(4);
+
+        this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+            this.hand.setPosition(pointer.x, pointer.y);
+        });
+
         let target = new Romu(this, centerX, centerY, 'phone');
         target.on('pointerdown', () => {
-            this.scene.stop();
+            // this.scene.launch('vastaa_luuriin');
+            this.stop();
         });
 
         let amount = (Phaser.Math.RND.integer() % 10) + 8;

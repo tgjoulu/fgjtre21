@@ -1,6 +1,6 @@
 export default class HeartBeat extends Phaser.Scene {
     currentHBSound: Phaser.Sound.BaseSound;
-    currentHB: number = 100;
+    currentHB: number = 60;
 
     constructor() {
         super({ key: 'heartbeatSounds' });
@@ -11,10 +11,12 @@ export default class HeartBeat extends Phaser.Scene {
             loop: true,
         });
         this.currentHBSound.play();
+        // this.setBPM(60);
     }
 
     setBPM(bpm: number) {
         this.currentHB = bpm;
+        this.currentHBSound.stop();
         this.currentHBSound = this.sound.add(`hb-${bpm}`, {
             loop: true,
         });
@@ -29,7 +31,7 @@ export default class HeartBeat extends Phaser.Scene {
 
     public decrease() {
         this.currentHBSound.stop();
-        this.setBPM(Math.max(this.currentHB - 10, 100));
+        this.setBPM(Math.max(this.currentHB - 10, 60));
         console.log('increase');
     }
 }
