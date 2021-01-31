@@ -70,6 +70,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     gameSuccess() {
+        this.heartbeatSounds.stop();
         this.scene.start('GoodEnding');
     }
 
