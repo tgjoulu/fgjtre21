@@ -41,11 +41,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             lineStyle: {
                 width: 1,
                 color: 0xffffff,
-                alpha: 1,
+                alpha: 0,
             },
             fillStyle: {
                 color: 0xffffff,
-                alpha: 1,
+                alpha: 0,
             },
         });
         scene.physics.world.enable(this.targetGraphic);
