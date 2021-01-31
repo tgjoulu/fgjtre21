@@ -6,6 +6,7 @@ export default class Phone extends MiniGameBase {
 
     private phoneCall: Phaser.Sound.BaseSound;
     private phoneBusy: Phaser.Sound.BaseSound;
+    private phoneRingtone: Phaser.Sound.BaseSound;
     private callListened: boolean = false;
     private originalBg: any = null;
 
@@ -26,6 +27,7 @@ export default class Phone extends MiniGameBase {
         this.declineSliderButton = this.add.image(385, 346, 'declinePhoneSliderButton').setScale(4);
         this.declineSliderButton.setInteractive();
         this.declineSliderButton.on('pointerdown', () => {
+            this.phoneRingtone.stop();
             this.phoneCall.stop();
             this.phoneBusy.isPlaying ? null : this.phoneBusy.play();
             this.callListened ? this.goodEnding() : this.badEnding();
@@ -34,6 +36,9 @@ export default class Phone extends MiniGameBase {
         this.acceptSliderButton = this.add.image(333, 270, 'acceptPhoneSliderButton').setScale(4);
         this.acceptSliderButton.setInteractive();
         this.acceptSliderButton.on('pointerdown', this.acceptClickHandler.bind(this));
+
+        this.phoneRingtone = this.sound.add('phone_ringtone');
+        this.phoneRingtone.play();
 
         this.phoneCall = this.sound.add('phonecall');
         this.phoneBusy = this.sound.add('phone_busy');
@@ -55,6 +60,7 @@ export default class Phone extends MiniGameBase {
         this.originalBg.setVisible(false);
         this.acceptSliderButton.setVisible(false);
 
+        this.phoneRingtone.stop();
         this.declineSliderButton.setPosition(402, 343);
         this.declineSliderButton.setDepth(100);
         this.originalBg = this.add
