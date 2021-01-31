@@ -77,6 +77,10 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('lost', 'assets/lost.png');
         this.load.image('won', 'assets/won.png');
 
+        this.load.audio('yuck', 'assets/sound/yuck.wav');
+        this.load.audio('aargh', 'assets/sound/aargh.wav');
+        this.load.audio('hyiss', 'assets/sound/hyiss.wav');
+
         this.load.spritesheet('walking', 'assets/walking.png', {
             frameWidth: 27,
             frameHeight: 64,
