@@ -21,7 +21,15 @@ const config: Phaser.Types.Core.GameConfig = {
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT,
     },
-    scene: [MainMenuScene, MainScene, MiniGames.Maze, MiniGames.Pizza, HeartBeat, MiniGames.Pile],
+    scene: [
+        MainMenuScene,
+        MainScene,
+        MiniGames.Maze,
+        MiniGames.Pizza,
+        HeartBeat,
+        MiniGames.Pile,
+        MiniGames.Popupper,
+    ],
     physics: {
         default: 'arcade',
         arcade: {
