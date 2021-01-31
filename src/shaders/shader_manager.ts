@@ -89,10 +89,10 @@ export class ShaderManager {
     }
 
     private updateLightShader(shader: LightPipeline, pointer: Phaser.Input.Pointer) {
-        shader.set1f('r', 100);
-        console.log(pointer.x + ',' + pointer.y);
-        // No need to adjust on every update, but could scale to heartbeat
-        shader.set1f('tx', pointer.x / 1024);
+        shader.set1f('tx', pointer.x / 576);
         shader.set1f('ty', 1 - pointer.y / 576);
+        // No need to adjust on every update, but could scale to heartbeat
+        shader.set1f('r', 0.15);
+        shader.set2f('resolution', 576, 576);
     }
 }
