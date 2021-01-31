@@ -1,9 +1,13 @@
 import GrayscalePipeline from './grayscale_pipeline';
+import LightPipeline from './light_pipeline';
+import RotationPipeline from './rotation_pipeline';
 import WavyPipeline from './wavy_pipeline';
 
 export enum ShaderType {
-    GRAYSCALE = 0x01,
-    WAVY = 0x02,
+    GRAYSCALE,
+    WAVY,
+    LIGHT,
+    ROTATION,
 }
 
 function shaderTypeToKey(type: ShaderType): string {
@@ -12,6 +16,10 @@ function shaderTypeToKey(type: ShaderType): string {
             return GrayscalePipeline.KEY;
         case ShaderType.WAVY:
             return WavyPipeline.KEY;
+        case ShaderType.LIGHT:
+            return LightPipeline.KEY;
+        case ShaderType.ROTATION:
+            return RotationPipeline.KEY;
     }
 }
 
@@ -21,6 +29,10 @@ function shaderTypeToClass(type: ShaderType) {
             return GrayscalePipeline;
         case ShaderType.WAVY:
             return WavyPipeline;
+        case ShaderType.LIGHT:
+            return LightPipeline;
+        case ShaderType.ROTATION:
+            return RotationPipeline;
     }
 }
 
@@ -37,6 +49,11 @@ export class ShaderManager {
                 GrayscalePipeline
             );
             this.pipelineManager.addPostPipeline(shaderTypeToKey(ShaderType.WAVY), WavyPipeline);
+            this.pipelineManager.addPostPipeline(shaderTypeToKey(ShaderType.LIGHT), LightPipeline);
+            this.pipelineManager.addPostPipeline(
+                shaderTypeToKey(ShaderType.ROTATION),
+                RotationPipeline
+            );
         }
     }
 
@@ -47,10 +64,8 @@ export class ShaderManager {
         }
         if (resetPipelines) {
             camera.resetPostPipeline();
-            this.shaderMask = 0;
         }
         camera.setPostPipeline(shaderTypeToKey(type));
-        this.shaderMask = this.shaderMask | (type as number);
     }
 
     private getShader(
@@ -64,17 +79,40 @@ export class ShaderManager {
         return null;
     }
 
-    update(camera: Phaser.Cameras.Scene2D.Camera) {
+    update(camera: Phaser.Cameras.Scene2D.Camera, pointer: Phaser.Input.Pointer) {
         const wavyShader = this.getShader(camera, ShaderType.WAVY);
         if (wavyShader) {
             this.updateWavyShader(wavyShader);
         }
+        const lightShader = this.getShader(camera, ShaderType.LIGHT);
+        if (lightShader) {
+            this.updateLightShader(lightShader, pointer);
+        }
+        const rotationShader = this.getShader(camera, ShaderType.ROTATION);
+        if (rotationShader) {
+            this.updateRotationShader(rotationShader);
+        }
     }
 
-    updateWavyShader(shader: WavyPipeline) {
+    private updateWavyShader(shader: WavyPipeline) {
         shader.setTime('time');
+        // No need to adjust on every update, but could scale to heartbeat
         shader.set1f('speed', 0.01);
         shader.set1f('waveLen', 0.01);
         shader.set1f('freq', 0.005);
+    }
+
+    private updateRotationShader(shader: RotationPipeline) {
+        shader.setTime('time');
+        // No need to adjust on every update, but could scale to heartbeat
+        shader.set2f('resolution', 1024, 576);
+    }
+
+    private updateLightShader(shader: LightPipeline, pointer: Phaser.Input.Pointer) {
+        shader.set1f('tx', pointer.x / 576);
+        shader.set1f('ty', 1 - pointer.y / 576);
+        // No need to adjust on every update, but could scale to heartbeat
+        shader.set1f('r', 0.15);
+        shader.set2f('resolution', 576, 576);
     }
 }
