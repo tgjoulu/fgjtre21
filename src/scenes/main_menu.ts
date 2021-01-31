@@ -4,6 +4,7 @@ import HeartBeat from '../objects/heartbeat';
 export default class MainMenuScene extends Phaser.Scene {
     startText: Phaser.GameObjects.Text;
     hbSounds: Phaser.Scene;
+    theme: Phaser.Sound.BaseSound;
 
     constructor() {
         super({ key: 'MainMenuScene' });
@@ -97,6 +98,8 @@ export default class MainMenuScene extends Phaser.Scene {
 
         this.load.audio('heartbeat_slow', 'assets/sound/HB-100bpm.wav');
 
+        this.load.audio('shanty', 'assets/sound/shantypaskaa.mp3');
+
         this.load.audio('hb-60', 'assets/sound/hb2_60bpm.wav');
         this.load.audio('hb-70', 'assets/sound/hb2_70bpm.wav');
         this.load.audio('hb-80', 'assets/sound/hb2_80bpm.wav');
@@ -116,6 +119,8 @@ export default class MainMenuScene extends Phaser.Scene {
 
     create() {
         this.createMenu();
+        const theme = this.sound.add('shanty');
+        theme.play();
     }
 
     createMenu() {
@@ -127,6 +132,7 @@ export default class MainMenuScene extends Phaser.Scene {
             .setDepth(9999)
             .setInteractive();
         startGameButton.on('pointerup', () => {
+            this.sound.stopAll();
             this.setGlobals();
             this.scene.start('MainScene');
         });
@@ -148,5 +154,6 @@ export default class MainMenuScene extends Phaser.Scene {
     setGlobals(): void {
         this.registry.set('shaderManager', new ShaderManager(this.game));
         this.registry.set('heartbeatSounds', this.scene.get('heartbeatSounds') as HeartBeat);
+        this.scene.launch('heartbeatSounds');
     }
 }
