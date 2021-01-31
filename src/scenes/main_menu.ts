@@ -36,6 +36,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('handLine', 'assets/handline.png');
         this.load.image('trashpile', 'assets/trashpile.png');
         this.load.image('end_bg', 'assets/end_bg.png');
+        this.load.image('logo', 'assets/logo.png');
 
         // phone game
         this.load.image('phoneGameBackgroundStart', 'assets/incoming_call.png');
@@ -76,6 +77,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('car', 'assets/car.png');
         this.load.image('lost', 'assets/lost.png');
         this.load.image('won', 'assets/won.png');
+        this.load.image('start_game', 'assets/start_game.png');
 
         this.load.spritesheet('walking', 'assets/walking.png', {
             frameWidth: 27,
@@ -108,20 +110,17 @@ export default class MainMenuScene extends Phaser.Scene {
     }
 
     createMenu() {
-        this.startText = this.add
-            .text(this.cameras.main.width / 2, this.cameras.main.height / 2, 'Start Game', {
-                color: '#000000',
-                fontSize: '32px',
-            })
-            .setOrigin(0.5, 0.5)
-            .setInteractive();
+        this.add.image(0, 0, 'logo').setScale(4).setOrigin(0, 0);
 
-        this.startText.on('pointerup', () => {
+        const startGameButton = this.add
+            .image(500, 300, 'start_game')
+            .setScale(4)
+            .setDepth(9999)
+            .setInteractive();
+        startGameButton.on('pointerup', () => {
             this.setGlobals();
             this.scene.start('MainScene');
         });
-
-        this.scene.launch('heartbeatSounds');
 
         const fsbutton = this.add
             .text(this.cameras.main.width - 10, this.cameras.main.height - 10, 'Fullscreen', {
