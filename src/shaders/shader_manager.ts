@@ -105,7 +105,6 @@ export class ShaderManager {
     }
 
     private updateWavyShader(shader: WavyPipeline) {
-        console.log(this.bpm);
         shader.setTime('time');
         // No need to adjust on every update, but could scale to heartbeat
         shader.set1f('speed', 0.0001 * this.bpm * 1.5);
