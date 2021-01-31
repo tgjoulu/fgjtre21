@@ -33,10 +33,14 @@ export default class MiniGameBase extends Phaser.Scene {
             .setOrigin(1, 0)
             .setInteractive();
         closeButton.on('pointerup', () => {
-            this.onDestroy();
-            this.scene.stop();
+            this.stop();
         });
         this._shaderManager = this.registry.get('shaderManager');
+    }
+
+    public stop() {
+        this.onDestroy();
+        this.scene.stop();
     }
 
     update(timestamp: number, dt: number) {

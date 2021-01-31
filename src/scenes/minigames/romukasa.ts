@@ -34,7 +34,7 @@ class Romu extends Phaser.Physics.Arcade.Sprite {
         this.setScale(4);
         this.setOrigin(0.5, 0.5);
         this.setCollideWorldBounds(true);
-        this.setBounce(0.8);
+        this.setBounce(0.2);
         this.body.setSize(32, 32);
         this.body.setOffset(16, 16);
 
@@ -84,7 +84,7 @@ export default class Pile extends MiniGameBase {
         let target = new Romu(this, centerX, centerY, 'phone');
         target.on('pointerdown', () => {
             // this.scene.launch('vastaa_luuriin');
-            this.scene.stop();
+            this.stop();
         });
 
         let amount = (Phaser.Math.RND.integer() % 10) + 8;
