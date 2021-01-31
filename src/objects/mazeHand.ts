@@ -24,7 +24,7 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
 
         this.setInteractive({ draggable: true });
         this.input.draggable = true;
-        this.setCircle(40);
+        this.setCircle(30);
 
         // Hand Rope
         this.handRope = this.scene.add.rope(813, 500, 'handLine', undefined, this.linePoints, true);
@@ -32,7 +32,7 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
         // Events
         this.on('drag', (_pointer, dragX, dragY) => {
             this.isDragging = true;
-            if (this.linePoints.length < this.maxLength) {
+            if (this.linePoints.length < this.maxLength && !this.isRetracting) {
                 this.setPosition(dragX, dragY);
             }
         });
@@ -58,7 +58,12 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
         });
 
         this.scene.input.on('pointermove', (_pointer: Phaser.Input.Pointer) => {
-            if (this.isPointerDown && this.isDragging && this.linePoints.length < this.maxLength) {
+            if (
+                this.isPointerDown &&
+                this.isDragging &&
+                this.linePoints.length < this.maxLength &&
+                !this.isRetracting
+            ) {
                 const x = this.x;
                 const y = this.y;
 
@@ -78,8 +83,8 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
                     this.linePoints.push(new Phaser.Math.Vector2(x, y));
                     -this.handRope.destroy();
                     this.handRope = this.scene.add.rope(
-                        10,
-                        30,
+                        0,
+                        0,
                         'handLine',
                         undefined,
                         this.linePoints
@@ -89,11 +94,28 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
         });
     }
 
+    startRetract() {
+        this.input.draggable = false;
+        this.isRetracting = true;
+        this.isPointerDown = false;
+    }
+
+    reset() {
+        this.input.draggable = true;
+
+        this.setRotation(0);
+        this.setPosition(750, 450);
+        this.handRope.destroy();
+        this.handRope = this.scene.add.rope(30, 30, 'handLine', undefined, this.linePoints, true);
+        this.isRetracting = false;
+        this.linePoints = [new Phaser.Math.Vector2(813, 500), new Phaser.Math.Vector2(750, 450)];
+    }
+
     update(dt: number) {
         if (this.isRetracting) {
             this.linePoints.splice(-1, 1);
             -this.handRope.destroy();
-            this.handRope = this.scene.add.rope(10, 30, 'handLine', undefined, this.linePoints);
+            this.handRope = this.scene.add.rope(0, 0, 'handLine', undefined, this.linePoints);
 
             // Go throught points or reset hand
             if (this.linePoints.length > 2) {
@@ -108,18 +130,7 @@ export default class MazeHand extends Phaser.Physics.Matter.Sprite {
                 this.setRotation(newAngle + 1.9);
                 this.setPosition(nextVector.x, nextVector.y);
             } else {
-                this.setRotation(0);
-                this.setPosition(750, 450);
-                this.handRope.destroy();
-                this.handRope = this.scene.add.rope(
-                    30,
-                    30,
-                    'handLine',
-                    undefined,
-                    this.linePoints,
-                    true
-                );
-                this.isRetracting = false;
+                this.reset();
             }
         }
     }
