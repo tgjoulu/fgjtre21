@@ -57,6 +57,11 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('sock', '../assets/sock.png');
         this.load.image('wallet', '../assets/wallet.png');
 
+        this.load.spritesheet('walking', '../assets/walking.png', {
+            frameWidth: 27,
+            frameHeight: 64,
+        });
+
         this.load.image('thought_bubble', '../assets/thought_bubble.png');
 
         this.load.audio('heartbeat_slow', '../assets/sound/HB-100bpm.wav');
