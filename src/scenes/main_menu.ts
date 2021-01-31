@@ -64,10 +64,19 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('sock', '../assets/sock.png');
         this.load.image('wallet', '../assets/wallet.png');
 
+        this.load.spritesheet('walking', '../assets/walking.png', {
+            frameWidth: 27,
+            frameHeight: 64,
+        });
+
         this.load.image('thought_bubble', '../assets/thought_bubble.png');
 
         this.load.audio('heartbeat_slow', '../assets/sound/HB-100bpm.wav');
 
+        this.load.audio('hb-60', '../assets/sound/hb2_60bpm.wav');
+        this.load.audio('hb-70', '../assets/sound/hb2_70bpm.wav');
+        this.load.audio('hb-80', '../assets/sound/hb2_80bpm.wav');
+        this.load.audio('hb-90', '../assets/sound/hb2_90bpm.wav');
         this.load.audio('hb-100', '../assets/sound/hb2_100bpm.wav');
         this.load.audio('hb-110', '../assets/sound/hb2_110bpm.wav');
         this.load.audio('hb-120', '../assets/sound/hb2_120bpm.wav');
@@ -100,6 +109,17 @@ export default class MainMenuScene extends Phaser.Scene {
         });
 
         this.scene.launch('heartbeatSounds');
+
+        const fsbutton = this.add
+            .text(this.cameras.main.width - 10, this.cameras.main.height - 10, 'Fullscreen', {
+                color: '#000000',
+                fontSize: '32px',
+            })
+            .setOrigin(1, 1)
+            .setInteractive()
+            .on('pointerup', () => {
+                this.scale.toggleFullscreen();
+            });
     }
 
     update() {}

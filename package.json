@@ -42,6 +42,7 @@
     },
     "dependencies": {
         "open-simplex-noise": "^2.4.0",
-        "phaser": "^3.52.0"
+        "phaser": "^3.52.0",
+        "phaser3-rex-plugins": "^1.1.39"
     }
 }

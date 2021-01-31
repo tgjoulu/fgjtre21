@@ -2,7 +2,7 @@ import { PhysicGraphics } from './physicGraphics';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Constants
-    readonly playerSpeed = 2100;
+    readonly playerSpeed = 400;
     readonly debugTarget = false;
 
     targetGraphic: Phaser.GameObjects.Graphics;
@@ -11,11 +11,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'player');
-
         scene.add.existing(this);
-        scene.physics.add.existing(this);
+
+        // Walking animation
+        const playerWalkingAnimation = this.anims.create({
+            key: 'walk',
+            frames: scene.anims.generateFrameNumbers('walking', {}),
+            frameRate: 16,
+        });
+
+        // Textures
         this.setTexture('playerSprite');
         this.setScale(4);
+        this.flipX = true;
+
+        // Physics
+        scene.physics.add.existing(this);
         this.body.setSize(15, 30);
         this.body.setOffset(8, 30);
         this.setCollideWorldBounds(true);
@@ -53,6 +64,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             (playerTargetCollidier) => {
                 this.isWalking = false;
                 playerTargetCollidier.body.stop();
+                this.stop();
             },
             undefined,
             this
@@ -61,6 +73,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Stop velocity when hitting world bounds
         this.scene.physics.world.on('worldbounds', () => {
             this.setVelocity(0);
+            this.stop();
         });
     }
 
@@ -69,6 +82,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.targetGraphic.setPosition(x, y);
 
         this.isWalking = true;
+        this.play({ key: 'walk', repeat: -1, repeatDelay: 20 });
+
         this.scene.physics.moveToObject(this, this.targetGraphic, this.playerSpeed);
+
+        // Flip players X according to target X
+        if (x < this.x) {
+            this.flipX = true;
+        } else {
+            this.flipX = false;
+        }
     }
 }
