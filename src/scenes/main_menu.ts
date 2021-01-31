@@ -35,6 +35,7 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('hand', '../../assets/hand.png');
         this.load.image('handLine', '../../assets/handline.png');
         this.load.image('trashpile', '../../assets/trashpile.png');
+        this.load.image('end_bg', '../../assets/end_bg.png');
 
         this.load.image('popup1', '../../assets/popup1.png');
         this.load.image('popup2', '../../assets/popup2.png');
@@ -63,6 +64,10 @@ export default class MainMenuScene extends Phaser.Scene {
         this.load.image('shirt', '../assets/shirt.png');
         this.load.image('sock', '../assets/sock.png');
         this.load.image('wallet', '../assets/wallet.png');
+
+        this.load.image('car', '../../assets/car.png');
+        this.load.image('lost', '../../assets/lost.png');
+        this.load.image('won', '../../assets/won.png');
 
         this.load.spritesheet('walking', '../assets/walking.png', {
             frameWidth: 27,
